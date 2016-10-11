@@ -16,8 +16,8 @@ To deploy the yesod app, take a look at the Yesod book chapter [Deploying your W
 Currently you need to force the background jobs to run, by visiting the endpoint `/force-run-job`. You can setup a cron job every 30 seconds by adding (or just ignore the second line to run it every minute),
 
 ```bash
-* * * * * /usr/bin/curl --silent http://konkurrence.hvisk.com/force-run-job >/dev/null 2>&1
-* * * * * ( sleep 30 ; /usr/bin/curl --silent http://konkurrence.hvisk.com/force-run-job >/dev/null 2>&1 )
+* * * * * /usr/bin/curl --silent http://konkurrence.hvisk.com/force-run-jobs >/dev/null 2>&1
+* * * * * ( sleep 30 ; /usr/bin/curl --silent http://konkurrence.hvisk.com/force-run-jobs >/dev/null 2>&1 )
 ```
 
 to your crontab file (you can use `crontab -e`).
