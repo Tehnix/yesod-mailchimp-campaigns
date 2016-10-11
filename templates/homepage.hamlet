@@ -1,0 +1,11 @@
+^{signupBannerWidget}
+
+<div .center-container>
+  <h1>
+    Vind lækre præmier
+  <p>
+    Deltag i konkurrencen
+  <form method=post action=@{SignupR} enctype=#{signupFormEnctype}>
+    ^{signupFormWidget}
+    <button #email-submit-btn type="submit">
+      Tilmeld Nu

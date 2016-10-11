@@ -1,0 +1,24 @@
+User
+  email Text
+  referredBy UserId Maybe
+  referralToken Text
+  dashboardToken Text
+  activationToken Text
+  activated Bool default=False
+  created UTCTime default=CURRENT_TIMESTAMP
+  updated UTCTime default=CURRENT_TIMESTAMP
+  UniqueEmail email
+  UniqueReferralToken referralToken
+  UniqueDashboardToken dashboardToken
+  UniqueActivationToken activationToken
+  deriving Eq
+  deriving Show
+Job
+  action JobAction
+  value Text
+  result Text Maybe
+  attempt Int
+  finished Bool
+  created UTCTime default=CURRENT_TIMESTAMP
+  updated UTCTime default=CURRENT_TIMESTAMP
+  deriving Show

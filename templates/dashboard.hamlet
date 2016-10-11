@@ -1,0 +1,71 @@
+<div #top-banner>
+  <img #logo-image src=@{StaticR images_hvisklogo_png} />
+  <img #banner-image src=@{StaticR images_dashboardbanner_png} />
+  <div #prizes-container>
+    <h2>
+      Præmier
+    <p>
+      1 <b>x</b> Shoppingtur til London
+    <p>
+      1 <b>x</b> Chanel taske
+    <p>
+      40 <b>x</b> hvisk smykker
+  <div #info-container>
+    <h1>
+      Inviter dine venner og optjen lodder
+    <p>
+      Del dit unikke link via Facebook, Instagram eller email og optjen lodder
+      til den store hvisk konkurrence. Vind en shoppingtur til London, en Chanel
+      taske og lækre hvisk smykker.
+    <div #link-container onclick="selectText('link-container')">
+      @{ReferAFriendR referralToken}
+
+
+<div .center-container>
+  <table #progress-container>
+    <tr #progress-goals>
+      <td .align-left>
+        Venner deltager
+      <td>
+        <div .round-number :(referralCount >= 5):.round-number-red>
+          5
+      <td>
+        <div .round-number :(referralCount >= 10):.round-number-red>
+          10
+      <td>
+        <div .round-number :(referralCount >= 15):.round-number-red>
+          15
+      <td>
+        <div .round-number :(referralCount >= 20):.round-number-red>
+          20
+    <tr>
+      <td colspan="5">
+        <div #progress-bar-background>
+          <div #progress-bar>
+    <tr #progress-steps>
+      <td .align-left>
+        Konkurrence-
+        <br>
+        lodder
+      <td>
+        5 lodder
+        <br>
+        optjent
+      <td>
+        10 lodder
+        <br>
+        optjent
+      <td>
+        15 lodder
+        <br>
+        optjent
+      <td>
+        20 lodder
+        <br>
+        optjent
+  <div #signup-counter>
+    <span #signup-count>
+      #{referralCount}
+    Venner deltager...
+    <div #keep-updated>
+      hold dig løbende opdateret..

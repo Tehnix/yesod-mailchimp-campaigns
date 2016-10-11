@@ -1,0 +1,62 @@
+#top-banner {
+  width: 100%;
+
+  #banner-image {
+    width: 100%;
+  }
+  #info-container {
+    position: absolute;
+    top: 3.8vw;
+    left: 8.7%;
+    text-align: center;
+    width: 14%;
+    font-family: "Gotham A", "Helvetica", "Arial";
+    text-transform: uppercase;
+
+    #logo-image {
+      width: 70%;
+    }
+    h2 {
+      margin-top: 8px;
+      font-weight: 400;
+      font-size: 1.4vw;
+      font-style:italic;
+    }
+    #countdown-title {
+      color: #98727A;
+      font-size: 0.9vw;
+      margin-bottom: 8px;
+    }
+    #countdown {
+      font-weight: 200;
+      font-style: italic;
+      font-size: 1.1vw;
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  #top-banner {
+    #info-container {
+      h2 {
+        margin-top: 3px;
+      }
+      #countdown-title {
+        margin-bottom: 3px;
+      }
+    }
+  }
+}
+
+@media (max-width: 508px) {
+  #top-banner {
+    #info-container {
+      h2 {
+        margin-top: 1px;
+      }
+      #countdown-title {
+        margin-bottom: 1px;
+      }
+    }
+  }
+}

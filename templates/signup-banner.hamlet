@@ -1,0 +1,12 @@
+<div #top-banner>
+  <img #banner-image src=@{StaticR images_signupbanner_png} />
+  <div #info-container>
+    <img #logo-image src=@{StaticR images_hvisklogo_png} />
+    <h2>
+      Konkurrence
+    <div #countdown-title>
+      Slutter om:
+    <div #countdown>
+      0 dage, 0 timer,
+      <br>
+      &amp; 0 sekunder

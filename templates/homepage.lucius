@@ -1,0 +1,40 @@
+#email-input {
+  font-family: "Gotham A", "Helvetica", "Arial";
+  padding: 8px;
+  width: 340px;
+  font-size: 14px;
+
+  &input[placeholder] {
+    text-transform: uppercase;
+    font-style: italic;
+  }
+  &::-webkit-input-placeholder {
+   text-transform: uppercase;
+   font-style: italic;
+  }
+  &:-moz-placeholder { /* Firefox 18- */
+    text-transform: uppercase;
+    font-style: italic;
+  }
+  &::-moz-placeholder {  /* Firefox 19+ */
+    text-transform: uppercase;
+    font-style: italic;
+  }
+  &:-ms-input-placeholder {
+    text-transform: uppercase;
+    font-style: italic;
+  }
+}
+
+#email-submit-btn {
+  margin-top: 18px;
+  color: white;
+  font-family: "Gotham A", "Helvetica", "Arial";
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 0px;
+  border: 1px solid #ABABAB;
+  background-color: #2A2A2A;
+  font-size: 14px;
+  padding: 8px 18px;
+}

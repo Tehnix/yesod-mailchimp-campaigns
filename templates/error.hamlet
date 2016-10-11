@@ -1,0 +1,7 @@
+^{signupBannerWidget}
+
+<div .center-container>
+  <h1>
+    An error occurred!
+  <p>
+    #{errorMessage}

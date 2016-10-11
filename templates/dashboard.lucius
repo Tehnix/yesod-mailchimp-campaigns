@@ -1,0 +1,118 @@
+#top-banner {
+  width: 100%;
+
+  #logo-image {
+    margin-top: 2px;
+    height: 2.5vw;
+    margin-left: 25%;
+  }
+  #banner-image {
+    width: 100%;
+  }
+  #prizes-container {
+    position: absolute;
+    top: 12.5vw;
+    left: 24.9%;
+    text-align: center;
+    width: 6%;
+
+    h2 {
+      font-family: "Gotham A", "Helvetica", "Arial";
+      font-size: 1vw;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
+    p {
+      font-family: "Gotham A", "Helvetica", "Arial";
+      font-size: 0.55vw;
+      text-transform: uppercase;
+      margin-top:0px;
+      margin-bottom:1px;
+    }
+  }
+  #info-container {
+    position: absolute;
+    top: 3.5vw;
+    width: 20%;
+    left: 53%;
+    text-align: center;
+    h1 {
+      font-family: "Gotham A", "Helvetica", "Arial";
+      font-size: 1.5vw;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
+    p {
+      font-size: 0.8vw;
+      color: #505050;
+    }
+    #link-container {
+      font-size: 0.8vw;
+      background: white;
+      margin: 0 auto;
+      width: 90%;
+      padding: 5px;
+    }
+  }
+}
+
+#progress-container {
+  margin-top: 40px;
+  width: 55%;
+
+  td {
+    width: 20%;
+  }
+  .align-left {
+    text-align: left;
+  }
+
+  #progress-bar-background {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: #E3E2DD;
+    height: 3px;
+    width: 100%;
+  }
+
+  #progress-bar {
+    background-color: #98727A;
+    height: 3px;
+    width: #{show progressBarPercentage}%;
+  }
+
+  #progress-goals, #progress-steps {
+    font-size: 12px;
+  }
+
+  .round-number {
+    color: #686868;
+    border-radius: 50%;
+    border: 1px solid #EAE9E6;
+    background: #F1F0EE;
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    margin: 0 auto;
+  }
+  .round-number-red {
+    border: 1px solid #EAE9E6;
+    background: #98727A;
+    color: white;
+  }
+}
+
+#signup-counter {
+  font-size: 13px;
+  margin-top: 60px;
+
+  #signup-count {
+    color: #98727A;
+  }
+  #keep-updated {
+    color: #CCCCCC;
+    text-transform: none;
+    font-size: 13px;
+    font-style: italic;
+  }
+}
