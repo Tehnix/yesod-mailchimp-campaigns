@@ -9,4 +9,4 @@ docker:
   auto-pull: true
   container-name: "yesod-server"
   # Use the below on the command line with --docker-run-args
-  run-args: ['--net=bridge', '--publish=3000:3000', '--env-file', '.env']
+  run-args: ['--net=bridge', '--publish=3000:3000']

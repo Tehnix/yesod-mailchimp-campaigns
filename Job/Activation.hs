@@ -1,4 +1,4 @@
-module Job.SendActivationMail (
+module Job.Activation (
   sendActivationMail
  ) where
 
@@ -29,21 +29,24 @@ hexMD5 :: Text -> String
 hexMD5 s = show (CH.hash (T.encodeUtf8 s) :: CH.Digest CH.MD5)
 
 -- | Add the user to mailchimp list
-sendActivationMail :: Key Job -> Text -> HandlerT App IO ()
-sendActivationMail jobId mail = do
-  $logInfo $ "Running SendActivationMail job for " <> mail
+sendActivationMail :: Key Job -> JobValue -> HandlerT App IO ()
+sendActivationMail jobId (JobValueUserMail mail) = do
+  $logInfo $ "Running sendActivationMail job for " <> mail
   -- Get the mailchimp API settings
   master <- getYesod
   let mailchimpApiUser = T.encodeUtf8 . mcApiUser . appMailchimp $ appSettings master
   let mailchimpApiKey = T.encodeUtf8 . mcApiKey . appMailchimp $ appSettings master
   let mailchimpApiLocation = mcApiLocation . appMailchimp $ appSettings master
-  let mailchimpListId = mcListId . appMailchimp $ appSettings master
-  let mailchimpApiEndpoint = T.unpack $ "http://" <> mailchimpApiLocation <> ".api.mailchimp.com/3.0/lists/" <> mailchimpListId <> "/members/"
   now <- liftIO getCurrentTime
   maybeUser <- runDB . getBy $ UniqueEmail mail
   case maybeUser of
-    Nothing                   -> return ()
+    Nothing              -> return ()
     Just (Entity _ user) -> do
+      let mailchimpListId = case userLanguage user of
+            Danish    -> mcDanishListId . appMailchimp $ appSettings master
+            Swedish   -> mcSwedishListId . appMailchimp $ appSettings master
+            Norwegian -> mcNorwegianListId . appMailchimp $ appSettings master
+      let mailchimpApiEndpoint = T.unpack $ "http://" <> mailchimpApiLocation <> ".api.mailchimp.com/3.0/lists/" <> mailchimpListId <> "/members/"
       render <- getUrlRender
       let activationUrl = render $ ActivateSignupR (userActivationToken user)
       let subscriber = MailchimpActivate mail activationUrl
@@ -75,3 +78,4 @@ sendActivationMail jobId mail = do
         _   -> runDB $ update jobId [JobUpdated =. now, JobResult =. Just "Failed"]
 
       return ()
+sendActivationMail _ _ = return ()

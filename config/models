@@ -5,6 +5,7 @@ User
   dashboardToken Text
   activationToken Text
   activated Bool default=False
+  language Language
   created UTCTime default=CURRENT_TIMESTAMP
   updated UTCTime default=CURRENT_TIMESTAMP
   UniqueEmail email
@@ -15,7 +16,7 @@ User
   deriving Show
 Job
   action JobAction
-  value Text
+  value JobValue
   result Text Maybe
   attempt Int
   finished Bool

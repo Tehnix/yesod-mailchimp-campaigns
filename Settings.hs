@@ -21,19 +21,37 @@ import Yesod.Default.Util          (WidgetFileSettings, widgetFileNoReload,
 
 -- | Runtime Mailchimp configuration values for the application
 data MailchimpConf = MailchimpConf
-  { mcApiUser     :: Text
-  , mcApiKey      :: Text
-  , mcApiLocation :: Text
-  , mcListId      :: Text
+  { mcApiUser         :: Text
+  , mcApiKey          :: Text
+  , mcApiLocation     :: Text
+  , mcDanishListId    :: Text
+  , mcSwedishListId   :: Text
+  , mcNorwegianListId :: Text
  } deriving Show
 
 instance FromJSON MailchimpConf where
   parseJSON = withObject "MailchimpConf" $ \o -> do
-    mcApiUser     <- o .: "api-user"
-    mcApiKey      <- o .: "api-key"
-    mcApiLocation <- o .: "api-location"
-    mcListId      <- o .: "list-id"
+    mcApiUser         <- o .: "api-user"
+    mcApiKey          <- o .: "api-key"
+    mcApiLocation     <- o .: "api-location"
+    mcDanishListId    <- o .: "danish-list-id"
+    mcSwedishListId   <- o .: "swedish-list-id"
+    mcNorwegianListId <- o .: "norwegian-list-id"
     return MailchimpConf {..}
+
+-- | Runtime Campaign configuration values for the application
+data CampaignConf = CampaignConf
+  { cmpDisallowDomains  :: [Text]
+  , cmpDisallowPatterns :: [Text]
+  , cmpSteps            :: [Int]
+ } deriving Show
+
+instance FromJSON CampaignConf where
+  parseJSON = withObject "CampaignConf" $ \o -> do
+    cmpDisallowDomains  <- o .: "disallowDomains"
+    cmpDisallowPatterns <- o .: "disallowPatterns"
+    cmpSteps            <- o .: "steps"
+    return CampaignConf {..}
 
 -- | Runtime settings to configure this application. These settings can be
 -- loaded from various sources: defaults, environment variables, config files,
@@ -74,6 +92,9 @@ data AppSettings = AppSettings
   , appMailchimp              :: MailchimpConf
   -- ^ Configuration for using the Mailchimp API
 
+  , appCampaign               :: CampaignConf
+  -- ^ Configuration for the campaign
+
   , appAuthDummyLogin         :: Bool
   -- ^ Indicate if auth dummy login should be enabled.
   }
@@ -103,6 +124,7 @@ instance FromJSON AppSettings where
     appAnalytics              <- o .:? "analytics"
 
     appMailchimp              <- o .:  "mailchimp"
+    appCampaign               <- o .:  "campaign"
 
     appAuthDummyLogin         <- o .:? "auth-dummy-login"      .!= defaultDev
 
@@ -157,6 +179,7 @@ combineStylesheets = combineStylesheets'
   (appSkipCombining compileTimeAppSettings)
   combineSettings
 
+-- combineScripts :: Name -> [Route Static] -> Q Exp
 combineScripts :: Name -> [Route Static] -> Q Exp
 combineScripts = combineScripts'
   (appSkipCombining compileTimeAppSettings)

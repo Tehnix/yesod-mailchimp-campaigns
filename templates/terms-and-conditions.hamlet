@@ -1,0 +1,7 @@
+^{languageSelectorWidget lang route}
+^{signupBannerWidget}
+
+<div .center-container.terms-and-condtions>
+  <h1>
+    _{MsgTermsAndConditionsTitle}
+  ^{termsAndConditionsTextWidget}

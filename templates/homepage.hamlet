@@ -1,11 +1,28 @@
+^{languageSelectorWidget lang route}
 ^{signupBannerWidget}
 
 <div .center-container>
   <h1>
-    Vind lækre præmier
-  <p>
-    Deltag i konkurrencen
+    _{MsgGetPrizes}
+  <p .subheader>
+    _{MsgParticipateInTheCompetition}
   <form method=post action=@{SignupR} enctype=#{signupFormEnctype}>
     ^{signupFormWidget}
     <button #email-submit-btn type="submit">
-      Tilmeld Nu
+      _{MsgSignupBtn}
+  <p>
+    _{MsgBonusDiscount}
+
+  $maybe msg <- mmsg
+    <div #message>
+      #{msg}
+
+  <h2 .about-header>
+    _{MsgAboutUs}
+  <p>
+    _{MsgAboutUsInformation} _{MsgFindOutMore} <a href="https://hvisk.com" target="_blank" title="_{MsgCheckOutHvisk}">_{MsgFindOutMoreHere}</a>.
+  <p>
+    _{MsgAboutOurNewsletter}
+  <p>
+    <a #show-terms-and-conditions href="#">
+      _{MsgCompetitionRules}

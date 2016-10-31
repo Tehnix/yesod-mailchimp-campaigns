@@ -1,11 +1,10 @@
 countdown.setLabels(
-	' millisekund| sekund| minut| time| dag| uge| månede| år| årti| århundrede| årtusinde',
-	' millisekunder| sekunder| minutter| timer| dage| uger| måneder| år| årti| århundrede| årtusinder',
+	' #{msgRender MsgMillisecond}| #{msgRender MsgSecond}| #{msgRender MsgMinute}| #{msgRender MsgHour}| #{msgRender MsgDay}| #{msgRender MsgWeek}| #{msgRender MsgMonth}| #{msgRender MsgYear}| #{msgRender MsgDecade}| #{msgRender MsgCentury}| #{msgRender MsgMillennium}',
+	' #{msgRender MsgMilliseconds}| #{msgRender MsgSeconds}| #{msgRender MsgMinutes}| #{msgRender MsgHours}| #{msgRender MsgDays}| #{msgRender MsgWeeks}| #{msgRender MsgMonths}| #{msgRender MsgYears}| #{msgRender MsgDecades}| #{msgRender MsgCenturies}| #{msgRender MsgMillennia}',
 	' <br>&amp; ',
 	', ',
-	'Nu!');
-var timespanId = countdown(new Date(2016, 9, 25), function(ts) {
+	'#{msgRender MsgNow}!');
+var timespanId = countdown(new Date(2016, 10, 14), function(ts) {
   var time = ts.toString();
-  time = time.replace('and', '<br>&amp;');
   document.getElementById('countdown').innerHTML = time;
 }, countdown.MONTHS|countdown.DAYS|countdown.HOURS|countdown.MINUTES|countdown.SECONDS);

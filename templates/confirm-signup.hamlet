@@ -1,7 +1,8 @@
+^{languageSelectorWidget lang route}
 ^{signupBannerWidget}
 
 <div .center-container>
   <h1>
-    Thanks for signing up!
+    _{MsgThanksForSigningUp}
   <p>
-    You should receive an activation email shortly
+    _{MsgWaitForActivationMail}

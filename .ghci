@@ -16,3 +16,10 @@
 :set -XTupleSections
 :set -XTypeFamilies
 :set -XViewPatterns
+
+:set -fobject-code
+:set -O0
+
+import Prelude
+:def reload \_ -> return (":l DevelMain\nDevelMain.update\n")
+

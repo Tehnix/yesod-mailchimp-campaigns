@@ -39,4 +39,11 @@ mailchimp:
   api-user: "_env:MAILCHIMPAPIUSER:xxxxx"
   api-key: "_env:MAILCHIMPAPIKEY:xxxxxxx-xxxxxxx-xxxxxxx-xxxxxx"
   api-location: "_env:MAILCHIMPAPILOCATION:us8"
-  list-id: "_env:MAILCHIMPLISTID:xxxxxxxx"
+  danish-list-id: "_env:MAILCHIMPLISTID:xxxxxxxx"
+  swedish-list-id: "_env:MAILCHIMPLISTID:xxxxxxxxx"
+  norwegian-list-id: "_env:MAILCHIMPLISTID:xxxxxxxxx"
+
+campaign:
+  disallowDomains: ["lortemail.dk"]
+  disallowPatterns: ["+"]
+  steps: [5, 10, 15, 20]

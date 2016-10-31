@@ -1,0 +1,31 @@
+<h2>
+  _{MsgTermsAndConditionsBy}
+<p>
+  _{MsgTermsAndConditionsByAddress}
+<h2>
+  _{MsgTermsAndConditionsPrizes}
+<p>
+  _{MsgTermsAndConditionsPrizesInfo}
+<h2>
+  _{MsgTermsAndConditionsParticipation}
+<p>
+  _{MsgTermsAndConditionsParticipationInfo1}
+<ul>
+  <li>
+    _{MsgTermsAndConditionsParticipationInfoPrize1}
+  <li>
+    _{MsgTermsAndConditionsParticipationInfoPrize2}
+  <li>
+    _{MsgTermsAndConditionsParticipationInfoPrize3}
+  <li>
+    _{MsgTermsAndConditionsParticipationInfoPrize4}
+<p>
+  _{MsgTermsAndConditionsParticipationInfo2}
+<h2>
+  _{MsgTermsAndConditionsWinner}
+<p>
+  _{MsgTermsAndConditionsWinnerInfo}
+<h2>
+  _{MsgTermsAndConditionsUseOfInformation}
+<p>
+  _{MsgTermsAndConditionsUseOfInformationInfo}

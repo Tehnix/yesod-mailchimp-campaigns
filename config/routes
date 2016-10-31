@@ -1,18 +1,25 @@
-/static               StaticR Static appStatic
-/favicon.ico          FaviconR              GET
-/robots.txt           RobotsR               GET
+/static                  StaticR Static appStatic
+/favicon.ico             FaviconR                       GET
+/robots.txt              RobotsR                        GET
 
-/                     SignupR               GET POST
-/refer-a-friend/#Text ReferAFriendR         GET
+/                                SignupR                GET POST
+!/#Language/                     SignupIR               GET
 
-/confirm-signup       ConfirmSignupR        GET
-/confirm-signup/#Text ActivateSignupR       GET
+/refer-a-friend/#Text            ReferAFriendR          GET
+!/#Language/refer-a-friend/#Text ReferAFriendIR         GET
 
-/dashboard/#Text      DashboardR            GET
+!/#Language/confirm-signup       ConfirmSignupIR        GET
 
-/already-exists       MailAlreadyExistsR    GET
-/invalid-mail         MailInvalidR          GET
-/invalid-form         InvalidFormR          GET
-/invalid-activation   InvalidActivationKeyR GET
+/confirm-signup/#Text            ActivateSignupR        GET
+!/#Language/confirm-signup/#Text ActivateSignupIR       GET
 
-/force-run-jobs       RunJobsR              GET
+/dashboard/#Text                 DashboardR             GET
+!/#Language/dashboard/#Text      DashboardIR            GET
+
+/terms-and-conditions            TermsAndConditionsR    GET
+!/#Language/terms-and-conditions TermsAndConditionsIR   GET
+
+!/#Language/invalid-activation   InvalidActivationKeyIR GET
+
+
+/force-run-jobs                  RunJobsR               GET

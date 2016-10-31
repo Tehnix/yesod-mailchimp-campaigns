@@ -1,7 +1,8 @@
+^{languageSelectorWidget lang route}
 ^{signupBannerWidget}
 
 <div .center-container>
   <h1>
-    An error occurred!
+    _{MsgAnErrorOccurred}
   <p>
     #{errorMessage}

@@ -1,12 +1,12 @@
 <div #top-banner>
-  <img #banner-image src=@{StaticR images_signupbanner_png} />
+  <img #banner-image src=@{StaticR images_signupbanner_jpg} />
   <div #info-container>
     <img #logo-image src=@{StaticR images_hvisklogo_png} />
     <h2>
-      Konkurrence
+      _{MsgCompetition}
     <div #countdown-title>
-      Slutter om:
+      _{MsgEndsIn}
     <div #countdown>
-      0 dage, 0 timer,
+      0 _{MsgDays}, 0 _{MsgHours},
       <br>
-      &amp; 0 sekunder
+      &amp; 0 _{MsgSeconds}

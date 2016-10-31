@@ -1,71 +1,92 @@
+^{languageSelectorWidget lang route}
 <div #top-banner>
   <img #logo-image src=@{StaticR images_hvisklogo_png} />
-  <img #banner-image src=@{StaticR images_dashboardbanner_png} />
+  $# <img #banner-image src="#{dashboardBannerImage}" />
+  <div #banner-image>
+
   <div #prizes-container>
     <h2>
-      Præmier
+      _{MsgPrizes}
     <p>
-      1 <b>x</b> Shoppingtur til London
+      1 <b>x</b> _{MsgFirstPrize}
     <p>
-      1 <b>x</b> Chanel taske
+      1 <b>x</b> _{MsgSecondPrize}
     <p>
-      40 <b>x</b> hvisk smykker
-  <div #info-container>
+      40 <b>x</b> _{MsgThirdPrize}
+  <div #info-container .hide-on-mobile>
     <h1>
-      Inviter dine venner og optjen lodder
+      _{MsgDashboardInfoTitle}
     <p>
-      Del dit unikke link via Facebook, Instagram eller email og optjen lodder
-      til den store hvisk konkurrence. Vind en shoppingtur til London, en Chanel
-      taske og lækre hvisk smykker.
+      _{MsgDashboardInfo}
+    <p .share-this-link>
+      _{MsgShareThisLink}
     <div #link-container onclick="selectText('link-container')">
-      @{ReferAFriendR referralToken}
+      #{referralUrl}
+    <p .share-on-facebook>
+      _{MsgShareOnFacebook}
+      <a href="https://www.facebook.com/sharer/sharer.php?u=#{encodedReferralUrl}" target="_blank" title="_{MsgShareOnFacebook}">
+        <img src=@{StaticR images_facebookicon_png} width="15px" height="15px" alt="_{MsgShareOnFacebook}" title="_{MsgShareOnFacebook}" />
 
 
 <div .center-container>
+  <div #info-container-mobile>
+    <h1>
+      _{MsgDashboardInfoTitle}
+    <p>
+      _{MsgDashboardInfo}
+    <p .share-this-link>
+      _{MsgShareThisLink}
+    <div #link-container-mobile onclick="selectText('link-container-mobile')">
+      @{ReferAFriendR referralToken}
+    <p .share-on-facebook>
+      _{MsgShareOnFacebook}
+      <a href="https://www.facebook.com/sharer/sharer.php?u=#{encodedReferralUrl}" target="_blank" title="_{MsgShareOnFacebook}">
+        <img src=@{StaticR images_facebookicon_png} width="15px" height="15px" alt="_{MsgShareOnFacebook}" title="_{MsgShareOnFacebook}" />
+
   <table #progress-container>
     <tr #progress-goals>
-      <td .align-left>
-        Venner deltager
+      <td .align-left.hide-on-mobile>
+        _{MsgFriendsParticipating}
       <td>
         <div .round-number :(referralCount >= 5):.round-number-red>
           5
+          <div .step-image>
+            <img src=@{StaticR images_step1_png} height="150px" alt="_{MsgFirstStepPrize}" title="_{MsgFirstStepPrize}" />
       <td>
         <div .round-number :(referralCount >= 10):.round-number-red>
           10
+          <div .step-image>
+            <img src=@{StaticR images_step2_png} height="150px" alt="_{MsgSecondStepPrize}" title="_{MsgSecondStepPrize}" />
       <td>
         <div .round-number :(referralCount >= 15):.round-number-red>
           15
+          <div .step-image>
+            <img src=@{StaticR images_step3_png} height="150px" alt="_{MsgThridStepPrize}" title="_{MsgThridStepPrize}" />
       <td>
         <div .round-number :(referralCount >= 20):.round-number-red>
           20
+          <div .step-image>
+            <img src=@{StaticR images_step4_png} height="150px" alt="_{MsgFourthStepPrize}" title="_{MsgFourthStepPrize}" />
     <tr>
       <td colspan="5">
         <div #progress-bar-background>
           <div #progress-bar>
     <tr #progress-steps>
-      <td .align-left>
-        Konkurrence-
-        <br>
-        lodder
+      <td .align-left.hide-on-mobile>
+        _{MsgParticipateInCompetitionFor}
       <td>
-        5 lodder
-        <br>
-        optjent
+        _{MsgFirstStepPrize}
       <td>
-        10 lodder
-        <br>
-        optjent
+        _{MsgSecondStepPrize}
       <td>
-        15 lodder
-        <br>
-        optjent
+        _{MsgThridStepPrize}
       <td>
-        20 lodder
-        <br>
-        optjent
+        _{MsgFourthStepPrize}
   <div #signup-counter>
     <span #signup-count>
       #{referralCount}
-    Venner deltager...
+    _{MsgFriendsParticipatingCount referralCount}...
     <div #keep-updated>
-      hold dig løbende opdateret..
+      _{MsgKeepUpdated}..
+  <p>
+    _{MsgBonusDiscountForYou}

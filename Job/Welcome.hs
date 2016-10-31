@@ -1,12 +1,12 @@
-module Job.SendWelcomeMail (
+module Job.Welcome (
   sendWelcomeMail
  ) where
 
 import           Import
-import qualified Network.HTTP.Simple   as HTTP
-import qualified Data.Text             as T
-import qualified Data.Text.Encoding    as T
-import qualified Crypto.Hash           as CH
+import qualified Network.HTTP.Simple as HTTP
+import qualified Data.Text           as T
+import qualified Data.Text.Encoding  as T
+import qualified Crypto.Hash         as CH
 
 
 data MailchimpWelcome = MailchimpWelcome Text Text Text deriving Show
@@ -31,21 +31,24 @@ hexMD5 :: Text -> String
 hexMD5 s = show (CH.hash (T.encodeUtf8 s) :: CH.Digest CH.MD5)
 
 -- | Add the user to mailchimp list
-sendWelcomeMail :: Key Job -> Text -> HandlerT App IO ()
-sendWelcomeMail jobId mail = do
-  $logInfo $ "Running SendActivationMail job for " <> mail
+sendWelcomeMail :: Key Job -> JobValue -> HandlerT App IO ()
+sendWelcomeMail jobId (JobValueUserMail mail) = do
+  $logInfo $ "Running sendWelcomeMail job for " <> mail
   -- Get the mailchimp API settings
   master <- getYesod
   let mailchimpApiUser = T.encodeUtf8 . mcApiUser . appMailchimp $ appSettings master
   let mailchimpApiKey = T.encodeUtf8 . mcApiKey . appMailchimp $ appSettings master
   let mailchimpApiLocation = mcApiLocation . appMailchimp $ appSettings master
-  let mailchimpListId = mcListId . appMailchimp $ appSettings master
-  let mailchimpApiEndpoint = T.unpack $ "http://" <> mailchimpApiLocation <> ".api.mailchimp.com/3.0/lists/" <> mailchimpListId <> "/members/"
   now <- liftIO getCurrentTime
   maybeUser <- runDB . getBy $ UniqueEmail mail
   case maybeUser of
-    Nothing                   -> return ()
+    Nothing              -> return ()
     Just (Entity _ user) -> do
+      let mailchimpListId = case userLanguage user of
+            Danish    -> mcDanishListId . appMailchimp $ appSettings master
+            Swedish   -> mcSwedishListId . appMailchimp $ appSettings master
+            Norwegian -> mcNorwegianListId . appMailchimp $ appSettings master
+      let mailchimpApiEndpoint = T.unpack $ "http://" <> mailchimpApiLocation <> ".api.mailchimp.com/3.0/lists/" <> mailchimpListId <> "/members/"
       render <- getUrlRender
       let referralUrl = render $ ReferAFriendR (userReferralToken user)
       let dashboardUrl = render $ DashboardR (userDashboardToken user)
@@ -61,3 +64,4 @@ sendWelcomeMail jobId mail = do
         200 -> runDB $ update jobId [JobFinished =. True, JobUpdated =. now, JobResult =. Just "Successful"]
         _   -> runDB $ update jobId [JobUpdated =. now, JobResult =. Just "Failed"]
       return ()
+sendWelcomeMail _ _ = return ()

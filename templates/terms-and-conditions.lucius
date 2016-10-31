@@ -1,0 +1,4 @@
+.terms-and-condtions {
+  text-align: left !important;
+  max-width: 700px;
+}

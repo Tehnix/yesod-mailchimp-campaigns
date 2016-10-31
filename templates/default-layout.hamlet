@@ -1,5 +1,16 @@
-^{widget}
+<div id="container" class="container">
+  <header>
+  <div id="main" role="main">
+    ^{widget}
 
-$maybe msg <- mmsg
-  <div #message>
-    #{msg}
+  <div id="terms-and-conditions" class="modal">
+    <div class="modal-content">
+      <span class="close">
+        x
+      ^{termsAndConditionsTextWidget}
+
+<footer id="footer" role="footer">
+  <p>
+    _{MsgFooterCopyright} &#124;
+    <a #show-terms-and-conditions-footer href="#" title="_{MsgCompetitionRules}">
+      _{MsgCompetitionRules}

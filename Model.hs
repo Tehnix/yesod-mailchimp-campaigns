@@ -1,9 +1,9 @@
 {-# LANGUAGE FlexibleInstances #-}
 module Model where
-
-import ClassyPrelude.Yesod
-import Database.Persist.Quasi
-import Types
+import            ClassyPrelude.Yesod
+import            Database.Persist.Quasi
+import            Job.Types
+import            Internationalization.Types
 
 
 -- You can define all of your database entities in the entities file.

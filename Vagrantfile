@@ -10,8 +10,7 @@ Vagrant.configure('2') do |config|
   config.ssh.forward_agent = true
 
   # Enable this to forward the yesod-devel port
-  # config.vm.network "forwarded_port", guest: 3000, host: 3000
-  # config.vm.network "public_network"
+  config.vm.network "forwarded_port", guest: 3000, host: 3000, auto_correct: true
 
   # Provider-specific configuration
   config.vm.provider 'virtualbox' do |vb|

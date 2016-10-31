@@ -9,7 +9,7 @@ __Getting started:__
 
 ## Deploying
 
-To deploy the yesod app, take a look at the Yesod book chapter [Deploying your Webapp](http://www.yesodweb.com/book/deploying-your-webapp). I personally like to use Keter, but that is entirely up to you.
+To deploy the yesod app, take a look at the Yesod book chapter [Deploying your Webapp](http://www.yesodweb.com/book/deploying-your-webapp). I personally like to use Keter (with `stack exec -- yesod keter`), but that is entirely up to you.
 
 ### Background Jobs
 
@@ -28,10 +28,6 @@ Included is a `Vagrantfile` that will set up a Ubuntu 14.04 64-bit VM, install t
 
 You can then use `vagrant push` to deploy your app with `stack exec -- yesod keter`. NOTE that it will also pull in your key for the server (assuming `~/.ssh/campaigns.pem`) and add your `~/.ssh/config` so that `yesod keter` can use the SCP command.
 
-## Passing environment variables
-
-Copy the `env.sample` to `.env` and set all your environment variables there instead of saving them to `settings.yml` and potentially committing them to your repository.
-
 ## Development
 
 You can start the development server using
@@ -40,9 +36,23 @@ You can start the development server using
 $ stack exec -- yesod devel
 ```
 
+or alternatively the .ghci file is set up for development, providing a `:reload` command that loads `DevelMain` and calls the `update` function. This can be a little speedier than `yesod devel`, namely because of `:set -fobject-code` and `:set -O0` in the `.ghci` file. So you would do,
+
+```bash
+$ stack ghci
+```
+
+and after it has loaded call
+
+```bash
+:reload
+```
+
+everytime you want to reload the server.
+
 ### Running with docker
 
-There is included a docker setup in the `stack-docker.yaml` file. It will setup the docker image and expose the docker ports `3000` so the website is accessible. It also reads in the `.env` file for passing environment variables.
+There is included a docker setup in the `stack-docker.yaml` file. It will setup the docker image and expose the docker ports `3000` so the website is accessible.
 
 ```bash
 $ stack --stack-yaml=stack-docker.yaml exec -- yesod devel

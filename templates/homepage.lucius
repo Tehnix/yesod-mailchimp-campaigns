@@ -1,5 +1,5 @@
 #email-input {
-  font-family: "Gotham A", "Helvetica", "Arial";
+  font-family: "Gotham A", "Gotham B", "Helvetica", "Arial";
   padding: 8px;
   width: 340px;
   font-size: 14px;
@@ -29,7 +29,7 @@
 #email-submit-btn {
   margin-top: 18px;
   color: white;
-  font-family: "Gotham A", "Helvetica", "Arial";
+  font-family: "Gotham A", "Gotham B", "Helvetica", "Arial";
   font-weight: bold;
   text-transform: uppercase;
   border-radius: 0px;
@@ -37,4 +37,26 @@
   background-color: #2A2A2A;
   font-size: 14px;
   padding: 8px 18px;
+}
+
+.about-header {
+  margin-top: 80px;
+}
+
+@media (max-width: 420px) {
+  #email-input {
+    width: 90%;
+  }
+}
+
+@media (max-width: 380px) {
+  #email-input {
+    width: 90%;
+  }
+}
+
+@media (max-width: 330px) {
+  #email-input {
+    width: 90%;
+  }
 }

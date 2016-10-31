@@ -1,0 +1,17 @@
+<div #language-selector .dropdown>
+  <button .dropbtn>
+    _{MsgChooseYourLanguage}: 
+    $if lang == Danish
+      _{MsgDanish}
+    $else
+      $if lang == Swedish
+        _{MsgSwedish}
+      $else
+        _{MsgNorwegian}
+  <div .dropdown-content>
+    <a href=@{route Danish}>
+      Danish
+    <a href=@{route Swedish}>
+      Swedish
+    <a href=@{route Norwegian}>
+      Norwegian

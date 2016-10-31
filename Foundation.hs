@@ -1,15 +1,16 @@
 module Foundation where
+import           Import.NoFoundation
+import           Database.Persist.Sql           (ConnectionPool, runSqlPool)
+import           Text.Hamlet                    (hamletFile)
+import           Text.Jasmine                   (minifym)
 
-import Import.NoFoundation
-import Database.Persist.Sql (ConnectionPool, runSqlPool)
-import Text.Hamlet          (hamletFile)
-import Text.Jasmine         (minifym)
-
-import Yesod.Default.Util   (addStaticContentExternal)
-import Yesod.Core.Types     (Logger)
-import qualified Yesod.Core.Unsafe as Unsafe
+import           Yesod.Default.Util             (addStaticContentExternal)
+import           Yesod.Core.Types               (Logger)
+import qualified Yesod.Core.Unsafe    as Unsafe
 import qualified Data.CaseInsensitive as CI
-import qualified Data.Text.Encoding as TE
+import qualified Data.Text.Encoding   as TE
+
+import           Internationalization.Form
 
 -- | The foundation datatype for your application. This can be a good place to
 -- keep settings and values requiring initialization before your application
@@ -36,6 +37,14 @@ data App = App
 -- type Handler = HandlerT App IO
 -- type Widget = WidgetT App IO ()
 mkYesodData "App" $(parseRoutesFile "config/routes")
+
+-- Create localization messages
+mkMessage "App" "messages" "da"
+
+-- Handle pluralization of translation strings
+plural :: Int -> String -> String -> String
+plural 1 x _ = x
+plural _ _ y = y
 
 -- | A convenient synonym for creating forms.
 type Form x = Html -> MForm (HandlerT App IO) (FormResult x, Widget)
@@ -67,17 +76,17 @@ instance Yesod App where
 
   defaultLayout widget = do
     master <- getYesod
-    mmsg <- getMessage
+    messageRender <- getMessageRender
 
     -- We break up the default layout into two components:
     -- default-layout is the contents of the body tag, and
     -- default-layout-wrapper is the entire page. Since the final
     -- value passed to hamletToRepHtml cannot be a widget, this allows
     -- you to use normal widget features in default-layout.
-
     pc <- widgetToPageContent $ do
       addStylesheet $ StaticR css_fonts_css
       addScript $ StaticR javascript_countdown_js
+      let termsAndConditionsTextWidget = $(widgetFile "terms-and-conditions-text")
       $(widgetFile "default-layout")
     withUrlRenderer $(hamletFile "templates/default-layout-wrapper.hamlet")
 
@@ -98,7 +107,7 @@ instance Yesod App where
       content
     where
       -- Generate a unique filename based on the content itself
-      genFileName lbs = "autogen-" ++ base64md5 lbs
+      genFileName lbs = "autogen-" <> base64md5 lbs
 
   -- What messages should be logged. The following includes all messages when
   -- in development, and warnings and errors in production.
@@ -122,7 +131,12 @@ instance YesodPersistRunner App where
 -- This instance is required to use forms. You can modify renderMessage to
 -- achieve customized and internationalized form validation messages.
 instance RenderMessage App FormMessage where
-  renderMessage _ _ = defaultFormMessage
+  renderMessage _ []        = danishFormMessage -- Default to Danish
+  renderMessage _ ("da":_)  = danishFormMessage
+  renderMessage _ ("sv":_)  = swedishFormMessage
+  renderMessage _ ("nb":_)  = norwegianFormMessage
+  renderMessage _ ("en":_)  = defaultFormMessage -- English
+  renderMessage m (_   :ls) = renderMessage m ls
 
 -- Useful when writing code that is re-usable outside of the Handler context.
 -- An example is background jobs that send email.
