@@ -51,9 +51,10 @@ sendStepAchievedMail jobId (JobValueStepNumber mail stepNumber) = do
                        . HTTP.setRequestIgnoreStatus
                        $ HTTP.setRequestBodyJSON subscriber patchUrl
       patchResponse <- liftIO $ HTTP.httpLBS patchRequest
+      let resp = T.decodeUtf8 . C.toStrict $ HTTP.getResponseBody patchResponse
       -- Check if the API call was successful or not
       case HTTP.getResponseStatusCode patchResponse of
-        200 -> runDB $ update jobId [JobFinished =. True, JobUpdated =. now, JobResult =. Just "Successful"]
-        _   -> runDB $ update jobId [JobUpdated =. now, JobResult =. Just (T.decodeUtf8 . C.toStrict $ HTTP.getResponseBody patchResponse)]
+        200 -> runDB $ update jobId [JobFinished =. True, JobUpdated =. now, JobResult =. Just resp]
+        _   -> runDB $ update jobId [JobUpdated =. now, JobResult =. Just resp]
       return ()
 sendStepAchievedMail _ _ = return ()

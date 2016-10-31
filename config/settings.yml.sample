@@ -39,9 +39,9 @@ mailchimp:
   api-user: "_env:MAILCHIMPAPIUSER:xxxxx"
   api-key: "_env:MAILCHIMPAPIKEY:xxxxxxx-xxxxxxx-xxxxxxx-xxxxxx"
   api-location: "_env:MAILCHIMPAPILOCATION:us8"
-  danish-list-id: "_env:MAILCHIMPLISTID:xxxxxxxx"
-  swedish-list-id: "_env:MAILCHIMPLISTID:xxxxxxxxx"
-  norwegian-list-id: "_env:MAILCHIMPLISTID:xxxxxxxxx"
+  danish-list-id: "_env:MAILCHIMPDANISHLISTID:xxxxxxxx"
+  swedish-list-id: "_env:MAILCHIMPSWEDISHLISTID:xxxxxxxxx"
+  norwegian-list-id: "_env:MAILCHIMPNORWEGIANLISTID:xxxxxxxxx"
 
 campaign:
   disallowDomains: ["lortemail.dk"]

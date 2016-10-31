@@ -56,10 +56,11 @@ sendActivationMail jobId (JobValueUserMail mail) = do
                       . HTTP.setRequestIgnoreStatus
                       $ HTTP.setRequestBodyJSON subscriber postUrl
       postResponse <- liftIO $ HTTP.httpLBS postRequest
+      let postResp = T.decodeUtf8 . C.toStrict $ HTTP.getResponseBody postResponse
       -- Check if the API call was successful or not
       case HTTP.getResponseStatusCode postResponse of
         -- Status code 200 indicates the user was successfully added
-        200 -> runDB $ update jobId [JobFinished =. True, JobUpdated =. now, JobResult =. Just "Successful"]
+        200 -> runDB $ update jobId [JobFinished =. True, JobUpdated =. now, JobResult =. Just postResp]
 
         -- If we get a status code 400, the user already exists and we need to
         -- send a PATCH request instead to update their information
@@ -70,10 +71,11 @@ sendActivationMail jobId (JobValueUserMail mail) = do
                            . HTTP.setRequestIgnoreStatus
                            $ HTTP.setRequestBodyJSON subscriber patchUrl
           patchResponse <- liftIO $ HTTP.httpLBS patchRequest
+          let patchResp = T.decodeUtf8 . C.toStrict $ HTTP.getResponseBody patchResponse
           -- Check if the API call was successful or not
           case HTTP.getResponseStatusCode patchResponse of
-            200 -> runDB $ update jobId [JobFinished =. True, JobUpdated =. now, JobResult =. Just "Successful"]
-            _   -> runDB $ update jobId [JobUpdated =. now, JobResult =. Just (T.decodeUtf8 . C.toStrict $ HTTP.getResponseBody patchResponse)]
+            200 -> runDB $ update jobId [JobFinished =. True, JobUpdated =. now, JobResult =. Just patchResp]
+            _   -> runDB $ update jobId [JobUpdated =. now, JobResult =. Just patchResp]
 
         -- Any other status code and the job is marked as failed
         _   -> runDB $ update jobId [JobUpdated =. now, JobResult =. Just "Failed"]
