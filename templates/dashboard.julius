@@ -10,3 +10,30 @@ function selectText(containerid) {
     window.getSelection().addRange(range);
   }
 }
+
+jQuery(document).ready(function($, window, document, undefined) {
+  var shortenURL = function($Field) {
+    var longURL = $Field.html();
+    $.ajax({
+      url: 'https://hvi.sk/shorten.php',
+      type: 'GET',
+      data: {longurl: longURL},
+      success: function(res) {
+        console.log(res)
+        $Field.html(res);
+        $Field.addClass("shortened");
+      },
+      error: function(res) {
+        console.log(res);
+      }
+    });
+  }
+  // Find and shorten link if it exists
+  if($("#link-container").length){
+    shortenURL($("#link-container"));
+  }
+  if($("#link-container-mobile").length){
+    shortenURL($("#link-container-mobile"));
+  }
+
+});

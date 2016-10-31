@@ -1,3 +1,8 @@
+#language-selector {
+  .dropbtn {
+    font-weight:bold;
+  }
+}
 #email-input {
   font-family: "Gotham A", "Gotham B", "Helvetica", "Arial";
   padding: 8px;

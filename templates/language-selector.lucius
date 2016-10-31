@@ -24,7 +24,7 @@
       background-color: transparent;
       font-family: "Gotham A", "Gotham B", "Helvetica", "Arial";
       font-size: 12px;
-      font-weight:bold;
+      /*font-weight:bold;*/
   }
 
   /* Dropdown Content (Hidden by Default) */
