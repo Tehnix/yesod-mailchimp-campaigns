@@ -3,10 +3,11 @@ module Job.Welcome (
  ) where
 
 import           Import
-import qualified Network.HTTP.Simple as HTTP
-import qualified Data.Text           as T
-import qualified Data.Text.Encoding  as T
-import qualified Crypto.Hash         as CH
+import qualified Network.HTTP.Simple        as HTTP
+import qualified Data.Text                  as T
+import qualified Data.Text.Encoding         as T
+import qualified Data.ByteString.Lazy.Char8 as C
+import qualified Crypto.Hash                as CH
 
 
 data MailchimpWelcome = MailchimpWelcome Text Text Text deriving Show
@@ -62,6 +63,6 @@ sendWelcomeMail jobId (JobValueUserMail mail) = do
       -- Check if the API call was successful or not
       case HTTP.getResponseStatusCode patchResponse of
         200 -> runDB $ update jobId [JobFinished =. True, JobUpdated =. now, JobResult =. Just "Successful"]
-        _   -> runDB $ update jobId [JobUpdated =. now, JobResult =. Just "Failed"]
+        _   -> runDB $ update jobId [JobUpdated =. now, JobResult =. Just (T.decodeUtf8 . C.toStrict $ HTTP.getResponseBody patchResponse)]
       return ()
 sendWelcomeMail _ _ = return ()

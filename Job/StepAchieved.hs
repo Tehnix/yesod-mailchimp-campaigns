@@ -3,10 +3,11 @@ module Job.StepAchieved (
  ) where
 
 import           Import
-import qualified Network.HTTP.Simple as HTTP
-import qualified Data.Text           as T
-import qualified Data.Text.Encoding  as T
-import qualified Crypto.Hash         as CH
+import qualified Network.HTTP.Simple        as HTTP
+import qualified Data.Text                  as T
+import qualified Data.Text.Encoding         as T
+import qualified Data.ByteString.Lazy.Char8 as C
+import qualified Crypto.Hash                as CH
 
 
 data MailchimpStepAchieved = MailchimpStepAchieved Text Int deriving Show
@@ -53,6 +54,6 @@ sendStepAchievedMail jobId (JobValueStepNumber mail stepNumber) = do
       -- Check if the API call was successful or not
       case HTTP.getResponseStatusCode patchResponse of
         200 -> runDB $ update jobId [JobFinished =. True, JobUpdated =. now, JobResult =. Just "Successful"]
-        _   -> runDB $ update jobId [JobUpdated =. now, JobResult =. Just "Failed"]
+        _   -> runDB $ update jobId [JobUpdated =. now, JobResult =. Just (T.decodeUtf8 . C.toStrict $ HTTP.getResponseBody patchResponse)]
       return ()
 sendStepAchievedMail _ _ = return ()
