@@ -16,7 +16,10 @@ getReferAFriendIR lang referrer = do
   setLanguage' lang
   messageRender <- getMessageRender
   mmsg <- getMessage
-  (signupFormWidget, signupFormEnctype) <- generateFormPost $ signupForm lang messageRender (Just referrer)
+  master <- getYesod
+  let disallowedDomains = cmpDisallowDomains . appCampaign $ appSettings master
+  let disallowedPatterns = cmpDisallowPatterns . appCampaign $ appSettings master
+  (signupFormWidget, signupFormEnctype) <- generateFormPost $ signupForm disallowedDomains disallowedPatterns lang messageRender (Just referrer)
   let route lang' = ReferAFriendIR lang' referrer
   internationalLayout lang $ do
     setTitleI MsgReferralSignupTitle

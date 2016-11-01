@@ -16,8 +16,11 @@ data SignupForm = SignupForm
 -- | Handle the form submission from the signup page and redirect accordingly
 postSignupR :: Handler Html
 postSignupR = do
+  master <- getYesod
+  let disallowedDomains = cmpDisallowDomains . appCampaign $ appSettings master
+  let disallowedPatterns = cmpDisallowPatterns . appCampaign $ appSettings master
   messageRender <- getMessageRender
-  ((result, _), _) <- runFormPost $ signupForm defaultLanguage messageRender Nothing
+  ((result, _), _) <- runFormPost $ signupForm disallowedDomains disallowedPatterns defaultLanguage messageRender Nothing
   case result of
     FormSuccess res -> do
       let mail = signupFormEmail res
@@ -69,18 +72,23 @@ postSignupR = do
       return . T.pack $ HTTP.urlEncode randomString
 
 -- | Construct the mail signup form
-signupForm :: Language -> (AppMessage -> Text) -> Maybe Text -> Html -> MForm Handler (FormResult SignupForm, Widget)
-signupForm lang messageRender referrer = renderDivs $ SignupForm
+signupForm :: [Text] -> [Text] -> Language -> (AppMessage -> Text) -> Maybe Text -> Html -> MForm Handler (FormResult SignupForm, Widget)
+signupForm disallowedDomains disallowedPatterns lang messageRender referrer = renderDivs $ SignupForm
   <$> areq signupEmailField (FieldSettings "" Nothing (Just "email-input") Nothing [("placeholder", messageRender MsgEmailPlaceholder)]) Nothing
   <*> areq hiddenField "" (Just lang)
   <*> case referrer of
     Nothing  -> aopt hiddenField "" Nothing
     Just ref -> aopt hiddenField "" $ Just (Just (toPathPiece ref))
   where
+    -- Check if the string contains the pattern in the user part of the email
     containsChar :: Text -> Text -> Bool
     containsChar s mail = isInfixOf s $ T.takeWhile (\c -> c /= '@') mail
+    -- Check if the email has a disallowed domain
+    hasDomain :: Text -> Text -> Bool
+    hasDomain domain mail = domain == (T.tail $ T.dropWhile (\c -> c /= '@') (T.toLower mail))
     -- Custom email validation
     signupEmailField = check validateEmail emailField
     validateEmail mail
-      | containsChar "+" mail = Left (messageRender MsgFormNoPlus :: Text)
-      | otherwise             = Right mail
+      | any (\s -> containsChar s mail) disallowedPatterns = Left (messageRender MsgFormDisallowedPattern :: Text)
+      | any (\s -> hasDomain s mail) disallowedDomains     = Left (messageRender MsgFormDisallowedDomain :: Text)
+      | otherwise                                          = Right mail

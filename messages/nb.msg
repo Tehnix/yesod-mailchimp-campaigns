@@ -63,7 +63,8 @@ BonusDiscountForYou:BONUS: Gi vennene dine 60kr rabatt på hvisk.com når de reg
 AnErrorOccurred:En feil oppsto
 NotAValidDashboardKey:Ikke en korrekt dashboard url!
 FormNoContent:Angi en mailadresse!
-FormNoPlus:Vi tillatter dessverre ikke + i mailadresser!
+FormDisallowedPattern:Vi tillatter dessverre ikke + i mailadresser!
+FormDisallowedDomain:Vi tillater dessverre ikke e-mail adresser fra dette domenet!
 FormMissing:Noe gikk galt. Prøv venligst å registrere deg i gjen.
 FormFailure:Det skjedde en feil i din registrering, brukte du en korrekt mailadresse?
 FormAlreadySignedUp:Du er allerede registrert!

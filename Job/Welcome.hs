@@ -37,6 +37,7 @@ sendWelcomeMail jobId (JobValueUserMail mail) = do
   $logInfo $ "Running sendWelcomeMail job for " <> mail
   -- Get the mailchimp API settings
   master <- getYesod
+  let maybeGoogleAnalytics = appAnalytics $ appSettings master
   let mailchimpApiUser = T.encodeUtf8 . mcApiUser . appMailchimp $ appSettings master
   let mailchimpApiKey = T.encodeUtf8 . mcApiKey . appMailchimp $ appSettings master
   let mailchimpApiLocation = mcApiLocation . appMailchimp $ appSettings master
@@ -46,13 +47,16 @@ sendWelcomeMail jobId (JobValueUserMail mail) = do
     Nothing              -> return ()
     Just (Entity _ signup) -> do
       let mailchimpListId = case signupLanguage signup of
-            Danish    -> mcDanishListId . appMailchimp $ appSettings master
-            Swedish   -> mcSwedishListId . appMailchimp $ appSettings master
-            Norwegian -> mcNorwegianListId . appMailchimp $ appSettings master
+            Danish    -> mcListIdDanish . mcListId . appMailchimp $ appSettings master
+            Swedish   -> mcListIdSwedish . mcListId . appMailchimp $ appSettings master
+            Norwegian -> mcListIdNorwegian . mcListId . appMailchimp $ appSettings master
       let mailchimpApiEndpoint = T.unpack $ "http://" <> mailchimpApiLocation <> ".api.mailchimp.com/3.0/lists/" <> mailchimpListId <> "/members/"
       render <- getUrlRender
+      let utms = case maybeGoogleAnalytics of
+            Nothing -> ""
+            Just _  -> "?utm_medium=email&utm_campaign=dashboard"
       let referralUrl = render $ ReferAFriendR (signupReferralToken signup)
-      let dashboardUrl = render $ DashboardR (signupDashboardToken signup)
+      let dashboardUrl = render (DashboardR (signupDashboardToken signup)) <> utms
       let subscriber = MailchimpWelcome mail referralUrl dashboardUrl
       let mailHash = hexMD5 mail
       let patchUrl = parseRequest_ $ "PATCH " <> mailchimpApiEndpoint <> mailHash

@@ -17,16 +17,24 @@ getDashboardIR lang dashboardToken = do
   setLanguage' lang
   render <- getUrlRender
   messageRender <- getMessageRender
+  master <- getYesod
   maybeDashboard <- runDB . getBy $ UniqueDashboardToken dashboardToken
+  let maybeGoogleAnalytics = appAnalytics $ appSettings master
   let route lang' = DashboardIR lang' dashboardToken
   case maybeDashboard of
     Nothing -> do
       setMessageI MsgNotAValidDashboardKey
       redirect $ SignupIR lang
     Just (Entity signupId signup) -> do
+      let utmsFacebook = case maybeGoogleAnalytics of
+            Nothing -> ""
+            Just _  -> "?utm_medium=facebook&utm_campaign=referral"
+      let utmsDirectLink = case maybeGoogleAnalytics of
+            Nothing -> rawJS ("" :: Text)
+            Just _  -> rawJS ("?utm_medium=direct+link&utm_campaign=referral" :: Text)
       let referralToken = signupReferralToken signup
       let referralUrl = render $ ReferAFriendIR lang referralToken
-      let encodedReferralUrl = HTTP.urlEncode $ T.unpack referralUrl
+      let encodedReferralUrl = HTTP.urlEncode $ T.unpack referralUrl <> utmsFacebook
       let encodedFacebookShareTitle = HTTP.urlEncode . T.unpack $ messageRender MsgFacebookShareTitle
       let encodedFacebookShareBody = HTTP.urlEncode . T.unpack $ messageRender MsgFacebookShareBody
       let dashboardBannerImage = case lang of

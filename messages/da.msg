@@ -63,7 +63,8 @@ BonusDiscountForYou:BONUS: Giv dine venner 50kr rabat på hvisk.com når de skri
 AnErrorOccurred:Der skete en fejl!
 NotAValidDashboardKey:Ikke en korrekt dashboard url!
 FormNoContent:Indtast venligst en email!
-FormNoPlus:Vi tillader desværre ikke + i mail addresser!
+FormDisallowedPattern:Vi tillader desværre ikke + i mail addresser!
+FormDisallowedDomain:Vi tillader desværre ikke mail addresser fra dette domæne!
 FormMissing:Det ser ud til at der gik noget galt. Prøv venligst at tilmelde dig igen!
 FormFailure:Der var en fejl i det indsendte, brugte du en korrekt email?
 FormAlreadySignedUp:Du er allerede tilmeldt!

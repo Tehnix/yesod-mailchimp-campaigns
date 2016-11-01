@@ -13,7 +13,7 @@ function selectText(containerid) {
 
 jQuery(document).ready(function($, window, document, undefined) {
   var shortenURL = function($Field) {
-    var longURL = $Field.html();
+    var longURL = $Field.html() + "#{utmsDirectLink}";
     $.ajax({
       url: 'https://hvi.sk/shorten.php',
       type: 'GET',

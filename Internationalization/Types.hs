@@ -19,6 +19,7 @@ instance PathPiece Language where
   toPathPiece Swedish = "se"
   toPathPiece Norwegian = "no"
 
+-- MonadHandler m => Language -> m ()
 -- setLanguage' :: Language -> Handler
 setLanguage' lang = case lang of
   Danish -> setLanguage "da"

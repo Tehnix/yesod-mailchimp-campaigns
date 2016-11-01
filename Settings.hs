@@ -21,23 +21,32 @@ import Yesod.Default.Util          (WidgetFileSettings, widgetFileNoReload,
 
 -- | Runtime Mailchimp configuration values for the application
 data MailchimpConf = MailchimpConf
-  { mcApiUser         :: Text
-  , mcApiKey          :: Text
-  , mcApiLocation     :: Text
-  , mcDanishListId    :: Text
-  , mcSwedishListId   :: Text
-  , mcNorwegianListId :: Text
+  { mcApiUser     :: Text
+  , mcApiKey      :: Text
+  , mcApiLocation :: Text
+  , mcListId      :: MailchimpListidConf
  } deriving Show
+
+data MailchimpListidConf = MailchimpListidConf
+  { mcListIdDanish    :: Text
+  , mcListIdSwedish   :: Text
+  , mcListIdNorwegian :: Text
+  } deriving Show
 
 instance FromJSON MailchimpConf where
   parseJSON = withObject "MailchimpConf" $ \o -> do
-    mcApiUser         <- o .: "api-user"
-    mcApiKey          <- o .: "api-key"
-    mcApiLocation     <- o .: "api-location"
-    mcDanishListId    <- o .: "danish-list-id"
-    mcSwedishListId   <- o .: "swedish-list-id"
-    mcNorwegianListId <- o .: "norwegian-list-id"
+    mcApiUser     <- o .: "api-user"
+    mcApiKey      <- o .: "api-key"
+    mcApiLocation <- o .: "api-location"
+    mcListId      <- o .: "list-id"
     return MailchimpConf {..}
+
+instance FromJSON MailchimpListidConf where
+  parseJSON = withObject "MailchimpListidConf" $ \o -> do
+    mcListIdDanish    <- o .: "danish"
+    mcListIdSwedish   <- o .: "swedish"
+    mcListIdNorwegian <- o .: "norwegian"
+    return MailchimpListidConf {..}
 
 -- | Runtime Campaign configuration values for the application
 data CampaignConf = CampaignConf
@@ -52,6 +61,15 @@ instance FromJSON CampaignConf where
     cmpDisallowPatterns <- o .: "disallowPatterns"
     cmpSteps            <- o .: "steps"
     return CampaignConf {..}
+
+data KlipfolioConf = KlipfolioConf
+  { klipEndpoint :: Text
+  } deriving Show
+
+instance FromJSON KlipfolioConf where
+  parseJSON = withObject "KlipfolioConf" $ \o -> do
+    klipEndpoint <- o .: "endpoint"
+    return KlipfolioConf {..}
 
 -- | Runtime settings to configure this application. These settings can be
 -- loaded from various sources: defaults, environment variables, config files,
@@ -95,6 +113,9 @@ data AppSettings = AppSettings
   , appCampaign               :: CampaignConf
   -- ^ Configuration for the campaign
 
+  , appKlipfolio              :: Maybe KlipfolioConf
+  -- ^ Configuration for Klipfolio
+
   , appAuthDummyLogin         :: Bool
   -- ^ Indicate if auth dummy login should be enabled.
   }
@@ -125,6 +146,7 @@ instance FromJSON AppSettings where
 
     appMailchimp              <- o .:  "mailchimp"
     appCampaign               <- o .:  "campaign"
+    appKlipfolio              <- o .:? "klipfolio"
 
     appAuthDummyLogin         <- o .:? "auth-dummy-login"      .!= defaultDev
 

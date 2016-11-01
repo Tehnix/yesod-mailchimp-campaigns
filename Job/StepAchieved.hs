@@ -40,9 +40,9 @@ sendStepAchievedMail jobId (JobValueStepNumber mail stepNumber) = do
     Nothing           -> return ()
     Just (Entity _ signup) -> do
       let mailchimpListId = case signupLanguage signup of
-            Danish    -> mcDanishListId . appMailchimp $ appSettings master
-            Swedish   -> mcSwedishListId . appMailchimp $ appSettings master
-            Norwegian -> mcNorwegianListId . appMailchimp $ appSettings master
+            Danish    -> mcListIdDanish . mcListId . appMailchimp $ appSettings master
+            Swedish   -> mcListIdSwedish . mcListId . appMailchimp $ appSettings master
+            Norwegian -> mcListIdNorwegian . mcListId . appMailchimp $ appSettings master
       let mailchimpApiEndpoint = T.unpack $ "http://" <> mailchimpApiLocation <> ".api.mailchimp.com/3.0/lists/" <> mailchimpListId <> "/members/"
       let subscriber = MailchimpStepAchieved mail stepNumber
       let mailHash = hexMD5 mail
