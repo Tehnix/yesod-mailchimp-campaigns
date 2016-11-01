@@ -1,7 +1,7 @@
 <div #language-selector .dropdown>
   <button .dropbtn>
     _{MsgChooseYourLanguage}:
-    <span .current-language> 
+    <span .current-language>
       $if lang == Danish
         _{MsgDanish}
       $else

@@ -10,12 +10,12 @@
     ^{signupFormWidget}
     <button #email-submit-btn type="submit">
       _{MsgSignupBtn}
+
+    $maybe msg <- mmsg
+      <div #message>
+        #{msg}
   <p>
     _{MsgBonusDiscount}
-
-  $maybe msg <- mmsg
-    <div #message>
-      #{msg}
 
   <ol .how-it-works>
     <li>
@@ -26,14 +26,6 @@
       _{MsgHowItWorksStep3}
     <li>
       _{MsgHowItWorksStep4}
-
-
-  <h2 .about-header>
-    _{MsgAboutUs}
-  <p>
-    _{MsgAboutUsInformation} _{MsgFindOutMore} <a href="https://hvisk.com" target="_blank" title="_{MsgCheckOutHvisk}">_{MsgFindOutMoreHere}</a>.
-  <p>
-    _{MsgAboutOurNewsletter}
-  <p>
-    <a #show-terms-and-conditions href="#">
-      _{MsgCompetitionRules}
+    <li .no-number>
+      <a #show-terms-and-conditions href="#">
+        _{MsgCompetitionRules}

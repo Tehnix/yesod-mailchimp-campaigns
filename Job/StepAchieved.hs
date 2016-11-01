@@ -38,8 +38,8 @@ sendStepAchievedMail jobId (JobValueStepNumber mail stepNumber) = do
   maybeUser <- runDB . getBy $ UniqueEmail mail
   case maybeUser of
     Nothing           -> return ()
-    Just (Entity _ user) -> do
-      let mailchimpListId = case userLanguage user of
+    Just (Entity _ signup) -> do
+      let mailchimpListId = case signupLanguage signup of
             Danish    -> mcDanishListId . appMailchimp $ appSettings master
             Swedish   -> mcSwedishListId . appMailchimp $ appSettings master
             Norwegian -> mcNorwegianListId . appMailchimp $ appSettings master

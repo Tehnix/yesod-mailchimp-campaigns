@@ -32,8 +32,8 @@ ThanksForSigningUp:Tack för din registrering!
 WaitForActivationMail:Du kommer strax att motta ett bekräftelsemail.
 
 HowItWorksStep1:Signup och få ditt unika länk
-HowItWorksStep2:Dela din unika länk via Facebook eller e-mail
-HowItWorksStep3:Du får en kupong på 65kr til hvisk.com
+HowItWorksStep2:Du får en kupong på 65kr til hvisk.com
+HowItWorksStep3:Dela din unika länk via Facebook och e-mail
 HowItWorksStep4:Tjäna ihop till lotter för att ha chansen att vinna följande priser
 
 Prizes:Priser

@@ -7,10 +7,10 @@ import qualified Prelude           as P (head)
 import           System.Random
 
 
-data Signup = Signup
-  { signupEmail    :: Text
-  , signupLanguage :: Language
-  , signupReferrer :: Maybe Text
+data SignupForm = SignupForm
+  { signupFormEmail    :: Text
+  , signupFormLanguage :: Language
+  , signupFormReferrer :: Maybe Text
   } deriving Show
 
 -- | Handle the form submission from the signup page and redirect accordingly
@@ -20,7 +20,7 @@ postSignupR = do
   ((result, _), _) <- runFormPost $ signupForm defaultLanguage messageRender Nothing
   case result of
     FormSuccess res -> do
-      let mail = signupEmail res
+      let mail = signupFormEmail res
       -- Check if the mail already exists in the system
       maybeCheckMail <- runDB . getBy $ UniqueEmail mail
       case maybeCheckMail of
@@ -29,16 +29,16 @@ postSignupR = do
           redirectUltDest SignupR
         Nothing -> do
           -- Only add the user if they don't already exist
-          referredBy <- maybeReferrer $ signupReferrer res
+          referredBy <- maybeReferrer $ signupFormReferrer res
           referralToken <- generateToken 45
           dashboardToken <- generateToken 30
           activationToken <- generateToken 90
           now <- liftIO getCurrentTime
-          let lang = signupLanguage res
+          let lang = signupFormLanguage res
           -- Insert the new user into the database, and schedule the activation
           -- mail to be sent out
           _ <- runDB $ do
-             _ <- insert $ User mail referredBy referralToken dashboardToken activationToken False lang now now
+             _ <- insert $ Signup mail referredBy referralToken dashboardToken activationToken False lang now now
              insert $ Job SendActiviatonMail (JobValueUserMail mail) Nothing 0 False now now
           redirect $ ConfirmSignupIR lang
     FormMissing     -> do
@@ -69,8 +69,8 @@ postSignupR = do
       return . T.pack $ HTTP.urlEncode randomString
 
 -- | Construct the mail signup form
-signupForm :: Language -> (AppMessage -> Text) -> Maybe Text -> Html -> MForm Handler (FormResult Signup, Widget)
-signupForm lang messageRender referrer = renderDivs $ Signup
+signupForm :: Language -> (AppMessage -> Text) -> Maybe Text -> Html -> MForm Handler (FormResult SignupForm, Widget)
+signupForm lang messageRender referrer = renderDivs $ SignupForm
   <$> areq signupEmailField (FieldSettings "" Nothing (Just "email-input") Nothing [("placeholder", messageRender MsgEmailPlaceholder)]) Nothing
   <*> areq hiddenField "" (Just lang)
   <*> case referrer of

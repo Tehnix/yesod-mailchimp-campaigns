@@ -32,8 +32,8 @@ ThanksForSigningUp:Tak for din tilmelding!
 WaitForActivationMail:Du vil modtage en bekræftelsesmail inden for kort tid
 
 HowItWorksStep1:Signup og få dit unikke link
-HowItWorksStep2:Del dit link via Facebook eller e-mail
-HowItWorksStep3:Du får 50kr rabat til hvisk.com
+HowItWorksStep2:Du får 50kr rabat til hvisk.com
+HowItWorksStep3:Del dit link via Facebook og e-mail
 HowItWorksStep4:Optjen lodder for at løbe afsted med fede præmier
 
 Prizes:Præmier

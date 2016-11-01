@@ -6,3 +6,13 @@
     _{MsgThanksForSigningUp}
   <p>
     _{MsgWaitForActivationMail}
+
+  <h2 .about-header>
+    _{MsgAboutUs}
+  <p>
+    _{MsgAboutUsInformation} _{MsgFindOutMore} <a href="https://hvisk.com" target="_blank" title="_{MsgCheckOutHvisk}">_{MsgFindOutMoreHere}</a>.
+  <p>
+    _{MsgAboutOurNewsletter}
+  <p>
+    <a #show-terms-and-conditions href="#">
+      _{MsgCompetitionRules}

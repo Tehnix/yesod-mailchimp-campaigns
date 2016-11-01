@@ -11,6 +11,8 @@ getTermsAndConditionsR = redirect $ TermsAndConditionsIR defaultLanguage
 
 getTermsAndConditionsIR :: Language -> Handler Html
 getTermsAndConditionsIR lang = do
+  -- Set the ultimate destination so we can redirect back correctly later on
+  setUltDestCurrent
   setLanguage' lang
   let route = TermsAndConditionsIR
   internationalLayout lang $ do

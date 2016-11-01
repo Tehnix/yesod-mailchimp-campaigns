@@ -32,8 +32,8 @@ ThanksForSigningUp:Takk for din registrering!
 WaitForActivationMail:Du vil straks motta en bekreftelsesmail.
 
 HowItWorksStep1:Signup og motta din unike link
-HowItWorksStep2:Dele din unike link, via Facebook eller epost
-HowItWorksStep3:Du motta et gavekort på 60kr hos hvisk.com
+HowItWorksStep2:Du motta et gavekort på 60kr hos hvisk.com
+HowItWorksStep3:Dele din unike link, via Facebook og epost
 HowItWorksStep4:Tjen lodd for å stikke av med fete premier
 
 Prizes:Premier

@@ -21,5 +21,6 @@
 
 !/#Language/invalid-activation   InvalidActivationKeyIR GET
 
+/set-language/#Language          SetLanguageR           GET
 
 /force-run-jobs                  RunJobsR               GET

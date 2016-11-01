@@ -44,15 +44,15 @@ sendWelcomeMail jobId (JobValueUserMail mail) = do
   maybeUser <- runDB . getBy $ UniqueEmail mail
   case maybeUser of
     Nothing              -> return ()
-    Just (Entity _ user) -> do
-      let mailchimpListId = case userLanguage user of
+    Just (Entity _ signup) -> do
+      let mailchimpListId = case signupLanguage signup of
             Danish    -> mcDanishListId . appMailchimp $ appSettings master
             Swedish   -> mcSwedishListId . appMailchimp $ appSettings master
             Norwegian -> mcNorwegianListId . appMailchimp $ appSettings master
       let mailchimpApiEndpoint = T.unpack $ "http://" <> mailchimpApiLocation <> ".api.mailchimp.com/3.0/lists/" <> mailchimpListId <> "/members/"
       render <- getUrlRender
-      let referralUrl = render $ ReferAFriendR (userReferralToken user)
-      let dashboardUrl = render $ DashboardR (userDashboardToken user)
+      let referralUrl = render $ ReferAFriendR (signupReferralToken signup)
+      let dashboardUrl = render $ DashboardR (signupDashboardToken signup)
       let subscriber = MailchimpWelcome mail referralUrl dashboardUrl
       let mailHash = hexMD5 mail
       let patchUrl = parseRequest_ $ "PATCH " <> mailchimpApiEndpoint <> mailHash

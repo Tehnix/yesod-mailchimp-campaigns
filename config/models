@@ -1,6 +1,6 @@
-User
+Signup
   email Text
-  referredBy UserId Maybe
+  referredBy SignupId Maybe
   referralToken Text
   dashboardToken Text
   activationToken Text

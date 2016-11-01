@@ -42,14 +42,14 @@ sendActivationMail jobId (JobValueUserMail mail) = do
   maybeUser <- runDB . getBy $ UniqueEmail mail
   case maybeUser of
     Nothing              -> return ()
-    Just (Entity _ user) -> do
-      let mailchimpListId = case userLanguage user of
+    Just (Entity _ signup) -> do
+      let mailchimpListId = case signupLanguage signup of
             Danish    -> mcDanishListId . appMailchimp $ appSettings master
             Swedish   -> mcSwedishListId . appMailchimp $ appSettings master
             Norwegian -> mcNorwegianListId . appMailchimp $ appSettings master
       let mailchimpApiEndpoint = T.unpack $ "http://" <> mailchimpApiLocation <> ".api.mailchimp.com/3.0/lists/" <> mailchimpListId <> "/members/"
       render <- getUrlRender
-      let activationUrl = render $ ActivateSignupR (userActivationToken user)
+      let activationUrl = render $ ActivateSignupR (signupActivationToken signup)
       let subscriber = MailchimpActivate mail activationUrl
       let postUrl = parseRequest_ $ "POST " <> mailchimpApiEndpoint
       let postRequest = HTTP.setRequestBasicAuth mailchimpApiUser mailchimpApiKey
