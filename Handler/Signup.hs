@@ -18,6 +18,6 @@ getSignupIR lang = do
   (signupFormWidget, signupFormEnctype) <- generateFormPost $ signupForm lang messageRender Nothing
   -- Set the ultimate destination so we can redirect back correctly later on
   setUltDestCurrent
-  defaultLayout $ do
+  internationalLayout lang $ do
     setTitleI MsgSignupTitle
     $(widgetFile "homepage")

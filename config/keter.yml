@@ -24,7 +24,7 @@ stanzas:
       # You can specify one or more hostnames for your application to respond
       # to. The primary hostname will be used for generating your application
       # root.
-      - verysecret.konkurrence.hvisk.com
+      - signup.hvisk.com
 
     # Enable to force Keter to redirect to https
     # Can be added to any stanza
@@ -33,7 +33,7 @@ stanzas:
   # Static files.
   - type: static-files
     hosts:
-      - static.konkurrence.hvisk.com
+      - static.signup.hvisk.com
     root: ../static
 
     # Uncomment to turn on directory listings.
@@ -43,9 +43,9 @@ stanzas:
   - type: redirect
 
     hosts:
-      - www.verysecret.konkurrence.hvisk.com
+      - www.signup.hvisk.com
     actions:
-      - host: verysecret.konkurrence.hvisk.com
+      - host: signup.hvisk.com
         # secure: false
         # port: 80
 
@@ -54,7 +54,7 @@ stanzas:
 
 # Use the following to automatically copy your bundle upon creation via `yesod
 # keter`. Uses `scp` internally, so you can set it to a remote destination
-copy-to: ubuntu@verysecret.konkurrence.hvisk.com:/opt/keter/incoming/
+copy-to: ubuntu@signup.hvisk.com:/opt/keter/incoming/
 
 # You can pass arguments to `scp` used above. This example limits bandwidth to
 # 1024 Kbit/s and uses port 2222 instead of the default 22

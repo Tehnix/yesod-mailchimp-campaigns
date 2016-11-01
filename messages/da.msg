@@ -5,11 +5,10 @@ ConfirmSignupTitle:Du er nu tilmeldt!
 TermsAndConditionsTitle:Konkurrence betingelser
 InvalidActivationKeyTitle:Ugyldig aktiverings nøgle!
 
-ChooseYourLanguage: Vælg sprog
-Danish: Dansk
-Swedish: Svensk
-Norwegian: Norsk
-
+ChooseYourLanguage:Vælg sprog
+Danish:Dansk
+Swedish:Svensk
+Norwegian:Norsk
 FooterCopyright:copyright hvisk 2016
 
 Competition:Konkurrence
@@ -32,6 +31,10 @@ CompetitionRules:Konkurrence betingelser
 ThanksForSigningUp:Tak for din tilmelding!
 WaitForActivationMail:Du vil modtage en bekræftelsesmail inden for kort tid
 
+HowItWorksStep1:Signup og få dit unikke link
+HowItWorksStep2:Del dit link via Facebook eller e-mail
+HowItWorksStep3:Du får 50kr rabat til hvisk.com
+HowItWorksStep4:Optjen lodder for at løbe afsted med fede præmier
 
 Prizes:Præmier
 FirstPrize:Shoppetur til London
@@ -48,7 +51,7 @@ FacebookShareBody:Tilmeld dig hvisks fashion nyhedsbrev og modtag 50kr rabat på
 ParticipateInCompetitionFor:Vær med i lodtrækningen om
 FirstStepPrize:500kr i hvisk smykker
 SecondStepPrize:1000kr i hvisk smykker
-ThridStepPrize:14k Infinity diamantring fra hvisk
+ThridStepPrize:14k Infinity diamantring værdi 9.000kr
 FourthStepPrize:shoppetur for to til London
 FriendsParticipating:Venner deltager
 FriendsParticipatingCount count@Int:#{plural count "Ven" "Venner"} deltager
@@ -69,7 +72,7 @@ FormAlreadySignedUp:Du er allerede tilmeldt!
 TermsAndConditionsBy:Konkurrencen afholdes af hvisk Aps som drives af:
 TermsAndConditionsByAddress:Hvisk Aps, Ny Østergade 9, 4. Sal., 1101 KØBENHAVN K, CVR-nr. 34718407
 TermsAndConditionsPrizes:Hvad kan du vinde?
-TermsAndConditionsPrizesInfo:Der udloddes et gavekort af 500kr til hvisk.com,  et gavekort af 1000kr til hvisk.com, 1 stk 14 k Infinity ring - værdi 9000kr (leveringstid afhænger din ringstørrelse), en tur for to til London, inkl. Flybilletter, 2 nætters overnatning i en lækker centralt hotel og 2000kr lommepenge til shopping (dato må selv bestemmes). Man kan kun vinde én premie per husstand. Du kan deltage i konkurrencen fra den 1. november til og med den  13. november 2016. Præmien kan ikke ombyttes til kontanter. Hvisk afholder præmieafgiften. Når du deler konkurrencen i dit netværk, giver du hver person der skriver sig ind til hvisks nyhedsbrev igennem din personlige link også 50kr rabat på et køb på hvisks hjemmeside der koster mere end 300kr.
+TermsAndConditionsPrizesInfo:Der udloddes et gavekort af 500kr til hvisk.com,  et gavekort af 1000kr til hvisk.com, 1 stk 14 k Infinity ring - værdi 9000kr (leveringstid afhænger din ringstørrelse), en tur for to til London, inkl. Flybilletter, 2 nætters overnatning i en lækker centralt hotel og 2000kr lommepenge til shopping (dato må selv bestemmes). Man kan kun vinde én premie per husstand. Du kan deltage i konkurrencen fra den 1. november til og med den  13. november 2016. Præmien kan ikke ombyttes til kontanter. Hvisk afholder præmieafgiften. Når du deler konkurrencen i dit netværk, giver du hver person der skriver sig ind til hvisks nyhedsbrev igennem din personlige link også 50kr rabat på et køb på hvisks hjemmeside der koster mere end 300kr. Gyldig til den 31. december, 2016.
 TermsAndConditionsParticipation:Hvordan deltager du?
 TermsAndConditionsParticipationInfo1:For at deltage i konkurrencen skal du oprette din e-mailadresse til hvisks nyhedsbrev og invitere så mange venner til nyhedsbrevet som muligt. Jo mere venner du invitere, jo større chance du har at få en lod i puljen for at vinde én af nedenstående priser:
 TermsAndConditionsParticipationInfoPrize1:500 kr hvisk gavekort (ved tilmelding af 5 venner)

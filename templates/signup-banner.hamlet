@@ -1,5 +1,6 @@
 <div #top-banner>
-  <img #banner-image src=@{StaticR images_signupbanner_jpg} />
+  <img .normal-banner.banner-image src=@{StaticR images_signupBanner_jpg} />
+  <img .mobile-banner.banner-image src=@{StaticR images_signupBannerMobile_jpg} />
   <div #info-container>
     <img #logo-image src=@{StaticR images_hvisklogo_png} />
     <h2>

@@ -11,7 +11,7 @@ getConfirmSignupIR :: Language -> Handler Html
 getConfirmSignupIR lang = do
   setLanguage' lang
   let route = ConfirmSignupIR
-  defaultLayout $ do
+  internationalLayout lang $ do
     setTitleI MsgConfirmSignupTitle
     $(widgetFile "confirm-signup")
 
@@ -22,7 +22,7 @@ getInvalidActivationKeyIR lang = do
   messageRender <- getMessageRender
   let errorMessage = messageRender MsgInvalidActivationKeyTitle
   let route = InvalidActivationKeyIR
-  defaultLayout $ do
+  internationalLayout lang $ do
     setTitleI MsgInvalidActivationKeyTitle
     $(widgetFile "error")
 

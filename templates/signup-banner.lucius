@@ -2,8 +2,11 @@
   width: 100%;
   overflow-x: hidden;
 
-  #banner-image {
+  .banner-image {
     width: 100%;
+  }
+  .mobile-banner {
+    display: none;
   }
   #info-container {
     position: absolute;
@@ -64,7 +67,7 @@
 
 @media (max-width: 980px) {
   #top-banner {
-    #banner-image {
+    .banner-image {
       width: 120%;
     }
     #info-container {
@@ -85,7 +88,7 @@
 
 @media (max-width: 770px) {
   #top-banner {
-    #banner-image {
+    .banner-image {
       width: 130%;
       margin-left: -20px;
     }
@@ -110,9 +113,15 @@
 
 @media (max-width: 550px) {
   #top-banner {
-    #banner-image {
+    .banner-image {
       width: 140%;
       margin-left: -40px;
+    }
+    .normal-banner {
+      display: none;
+    }
+    .mobile-banner {
+      display: block;
     }
     #info-container {
       top: 8vw;
@@ -135,7 +144,7 @@
 
 @media (max-width: 420px) {
   #top-banner {
-    #banner-image {
+    .banner-image {
       width: 220%;
       margin-left: -40px;
     }

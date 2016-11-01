@@ -43,6 +43,16 @@
   font-size: 14px;
   padding: 8px 18px;
 }
+.how-it-works {
+  max-width:250px;
+  margin:auto;
+  text-align:left;
+  li {
+    font-family: "Gotham A", "Gotham B", "Helvetica", "Arial";
+    font-size: 13px;
+    margin-top: 5px;
+  }
+}
 
 .about-header {
   margin-top: 80px;

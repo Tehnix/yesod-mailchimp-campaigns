@@ -14,6 +14,7 @@ getDashboardIR :: Language -> Text -> Handler Html
 getDashboardIR lang dashboardToken = do
   setLanguage' lang
   render <- getUrlRender
+  messageRender <- getMessageRender
   maybeDashboard <- runDB . getBy $ UniqueDashboardToken dashboardToken
   let route = flippedRoute
   case maybeDashboard of
@@ -24,16 +25,18 @@ getDashboardIR lang dashboardToken = do
       let referralToken = userReferralToken user
       let referralUrl = render $ ReferAFriendIR lang referralToken
       let encodedReferralUrl = HTTP.urlEncode $ T.unpack referralUrl
+      let encodedFacebookShareTitle = HTTP.urlEncode . T.unpack $ messageRender MsgFacebookShareTitle
+      let encodedFacebookShareBody = HTTP.urlEncode . T.unpack $ messageRender MsgFacebookShareBody
       let dashboardBannerImage = case lang of
-            Danish    -> render $ StaticR images_dashboardbannerda_jpg
-            Swedish   -> render $ StaticR images_dashboardbannerse_jpg
-            Norwegian -> render $ StaticR images_dashboardbannerno_jpg
+            Danish    -> render $ StaticR images_dashboardBannerDa_jpg
+            Swedish   -> render $ StaticR images_dashboardBannerSe_jpg
+            Norwegian -> render $ StaticR images_dashboardBannerNo_jpg
       referralCount <- runDB $ count [ UserReferredBy ==. Just userId
                                      , UserActivated ==. True
                                      ]
       let progressBarPercentage = 20 + (referralCount * 4)
       let progressBarMobilePercentage = referralCount * 4
-      defaultLayout $ do
+      internationalLayout lang $ do
         setTitleI MsgDashboardTitle
         $(widgetFile "dashboard")
   where

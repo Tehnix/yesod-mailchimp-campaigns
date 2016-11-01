@@ -15,7 +15,7 @@ $newline never
     <meta property="og:type" content="website" />
     <meta property="og:title" content="#{messageRender MsgFacebookShareTitle}" />
     <meta property="og:description" content="#{messageRender MsgFacebookShareBody}" />
-    <meta property="og:image" content=@{StaticR images_signupbanner_jpg} />
+    <meta property="og:image" content=#{facebookShareImage} />
 
     ^{pageHead pc}
 

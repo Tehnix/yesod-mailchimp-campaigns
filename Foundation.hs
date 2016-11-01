@@ -77,6 +77,8 @@ instance Yesod App where
   defaultLayout widget = do
     master <- getYesod
     messageRender <- getMessageRender
+    render <- getUrlRender
+    let facebookShareImage = render $ StaticR images_facebookshare_jpg
 
     -- We break up the default layout into two components:
     -- default-layout is the contents of the body tag, and
@@ -154,3 +156,20 @@ unsafeHandler = Unsafe.fakeHandlerGetLogger appLogger
 -- https://github.com/yesodweb/yesod/wiki/Sending-email
 -- https://github.com/yesodweb/yesod/wiki/Serve-static-files-from-a-separate-domain
 -- https://github.com/yesodweb/yesod/wiki/i18n-messages-in-the-scaffolding
+
+internationalLayout :: Language -> Widget -> Handler Html
+internationalLayout lang widget = do
+  master <- getYesod
+  messageRender <- getMessageRender
+  render <- getUrlRender
+  let facebookShareImage = case lang of
+        Danish    -> render $ StaticR images_facebookshareda_jpg
+        Swedish   -> render $ StaticR images_facebooksharese_jpg
+        Norwegian -> render $ StaticR images_facebookshareno_jpg
+
+  pc <- widgetToPageContent $ do
+    addStylesheet $ StaticR css_fonts_css
+    addScript $ StaticR javascript_countdown_js
+    let termsAndConditionsTextWidget = $(widgetFile "terms-and-conditions-text")
+    $(widgetFile "default-layout")
+  withUrlRenderer $(hamletFile "templates/default-layout-wrapper.hamlet")

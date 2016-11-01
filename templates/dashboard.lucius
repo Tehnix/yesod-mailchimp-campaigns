@@ -17,7 +17,7 @@
     /*padding-top: 17.8%;*/
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 2249px 400px;
+    background-size: 2249px 439px;
     padding-top: 400px;
   }
   #info-container {
@@ -73,6 +73,17 @@
     }
   }
 }
+.share-this-link {
+  margin-bottom: 8px;
+}
+.share-on-facebook {
+  img {
+    margin-bottom: -5px;
+  }
+  a {
+    text-decoration: none;
+  }
+}
 
 #progress-container {
   margin-top: 40px;
@@ -126,18 +137,18 @@
       position: absolute;
       top: 0;
       left: 0;
-      padding-bottom: 10px;
-      padding-left: 8px;
-      padding-top: 8px;
-      padding-right: 8px;
+      padding-bottom: 20px;
+      padding-left: 10px;
+      padding-top: 10px;
+      padding-right: 10px;
       box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     }
     &:hover > .step-image {
       display: block;
       background: white;
       position: absolute;
-      top: -185px;
-      left: -63px;
+      top: -195px;
+      left: -75px;
     }
   }
 }
@@ -169,7 +180,7 @@
   }
   #top-banner {
     #banner-image {
-      background-size: 1700px 302px;
+      background-size: 1700px 331px;
       padding-top: 302px;
     }
     #logo-image {
@@ -195,7 +206,7 @@
   }
   #top-banner {
     #banner-image {
-      background-size: 1200px 213px;
+      background-size: 1200px 234px;
       padding-top: 213px;
     }
     #logo-image {
@@ -213,6 +224,13 @@
       }
     }
   }
+  .share-on-facebook {
+    img {
+      margin-bottom: -4px;
+      width: 15px;
+      height: 15px;
+    }
+  }
 }
 
 @media (max-width: 650px) {
@@ -221,7 +239,7 @@
   }
   #top-banner {
     #banner-image {
-      background-size: 850px 151px;
+      background-size: 850px 165px;
       padding-top: 151px;
     }
     #logo-image {
@@ -241,6 +259,13 @@
       }
     }
   }
+  .share-on-facebook {
+    img {
+      margin-bottom: -3px;
+      width: 12px;
+      height: 12px;
+    }
+  }
 }
 
 @media (max-width: 500px) {
@@ -253,10 +278,13 @@
       height: 3px;
       width: #{show progressBarMobilePercentage}%;
     }
+    #progress-steps {
+      font-size: 9px;
+    }
   }
   #top-banner {
     #banner-image {
-      background-size: 950px 168px;
+      background-size: 950px 185px;
       padding-top: 168px;
       background-position: -120px;
     }
@@ -281,6 +309,13 @@
       word-wrap: break-word;
       text-transform: none;
     }
+    .share-on-facebook {
+      img {
+        margin-bottom: -1px;
+        width: 12px;
+        height: 12px;
+      }
+    }
   }
 }
 
@@ -292,6 +327,11 @@
     #logo-image {
       height: 25px;
       margin-left: 10%;
+    }
+  }
+  #progress-container {
+    #progress-steps {
+      font-size: 8px;
     }
   }
 }

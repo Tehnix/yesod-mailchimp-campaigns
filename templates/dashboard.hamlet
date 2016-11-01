@@ -4,15 +4,6 @@
   $# <img #banner-image src="#{dashboardBannerImage}" />
   <div #banner-image>
 
-  <div #prizes-container>
-    <h2>
-      _{MsgPrizes}
-    <p>
-      1 <b>x</b> _{MsgFirstPrize}
-    <p>
-      1 <b>x</b> _{MsgSecondPrize}
-    <p>
-      40 <b>x</b> _{MsgThirdPrize}
   <div #info-container .hide-on-mobile>
     <h1>
       _{MsgDashboardInfoTitle}
@@ -23,9 +14,9 @@
     <div #link-container onclick="selectText('link-container')">
       #{referralUrl}
     <p .share-on-facebook>
-      _{MsgShareOnFacebook}
-      <a href="https://www.facebook.com/sharer/sharer.php?u=#{encodedReferralUrl}" target="_blank" title="_{MsgShareOnFacebook}">
-        <img src=@{StaticR images_facebookicon_png} width="15px" height="15px" alt="_{MsgShareOnFacebook}" title="_{MsgShareOnFacebook}" />
+      <a href="https://www.facebook.com/sharer/sharer.php?u=#{encodedReferralUrl}&title=#{encodedFacebookShareTitle}&description=#{encodedFacebookShareBody}" target="_blank" title="_{MsgShareOnFacebook}">
+        _{MsgShareOnFacebook}
+        <img src=@{StaticR images_facebookicon_png} width="20px" height="20px" alt="_{MsgShareOnFacebook}" title="_{MsgShareOnFacebook}" />
 
 
 <div .center-container>
@@ -39,9 +30,9 @@
     <div #link-container-mobile onclick="selectText('link-container-mobile')">
       @{ReferAFriendR referralToken}
     <p .share-on-facebook>
-      _{MsgShareOnFacebook}
       <a href="https://www.facebook.com/sharer/sharer.php?u=#{encodedReferralUrl}" target="_blank" title="_{MsgShareOnFacebook}">
-        <img src=@{StaticR images_facebookicon_png} width="15px" height="15px" alt="_{MsgShareOnFacebook}" title="_{MsgShareOnFacebook}" />
+        _{MsgShareOnFacebook}
+        <img src=@{StaticR images_facebookicon_png} width="20px" height="20px" alt="_{MsgShareOnFacebook}" title="_{MsgShareOnFacebook}" />
 
   <table #progress-container>
     <tr #progress-goals>
@@ -51,22 +42,22 @@
         <div .round-number :(referralCount >= 5):.round-number-red>
           5
           <div .step-image>
-            <img src=@{StaticR images_step1_png} height="150px" alt="_{MsgFirstStepPrize}" title="_{MsgFirstStepPrize}" />
+            <img src=@{StaticR images_step1_jpg} height="150px" alt="_{MsgFirstStepPrize}" title="_{MsgFirstStepPrize}" />
       <td>
         <div .round-number :(referralCount >= 10):.round-number-red>
           10
           <div .step-image>
-            <img src=@{StaticR images_step2_png} height="150px" alt="_{MsgSecondStepPrize}" title="_{MsgSecondStepPrize}" />
+            <img src=@{StaticR images_step2_jpg} height="150px" alt="_{MsgSecondStepPrize}" title="_{MsgSecondStepPrize}" />
       <td>
         <div .round-number :(referralCount >= 15):.round-number-red>
           15
           <div .step-image>
-            <img src=@{StaticR images_step3_png} height="150px" alt="_{MsgThridStepPrize}" title="_{MsgThridStepPrize}" />
+            <img src=@{StaticR images_step3_jpg} height="150px" alt="_{MsgThridStepPrize}" title="_{MsgThridStepPrize}" />
       <td>
         <div .round-number :(referralCount >= 20):.round-number-red>
           20
           <div .step-image>
-            <img src=@{StaticR images_step4_png} height="150px" alt="_{MsgFourthStepPrize}" title="_{MsgFourthStepPrize}" />
+            <img src=@{StaticR images_step4_jpg} height="150px" alt="_{MsgFourthStepPrize}" title="_{MsgFourthStepPrize}" />
     <tr>
       <td colspan="5">
         <div #progress-bar-background>

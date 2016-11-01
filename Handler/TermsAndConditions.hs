@@ -13,6 +13,6 @@ getTermsAndConditionsIR :: Language -> Handler Html
 getTermsAndConditionsIR lang = do
   setLanguage' lang
   let route = TermsAndConditionsIR
-  defaultLayout $ do
+  internationalLayout lang $ do
     setTitleI MsgTermsAndConditionsTitle
     $(widgetFile "terms-and-conditions")

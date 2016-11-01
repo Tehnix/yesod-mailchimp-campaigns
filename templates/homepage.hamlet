@@ -17,6 +17,17 @@
     <div #message>
       #{msg}
 
+  <ol .how-it-works>
+    <li>
+      _{MsgHowItWorksStep1}
+    <li>
+      _{MsgHowItWorksStep2}
+    <li>
+      _{MsgHowItWorksStep3}
+    <li>
+      _{MsgHowItWorksStep4}
+
+
   <h2 .about-header>
     _{MsgAboutUs}
   <p>
