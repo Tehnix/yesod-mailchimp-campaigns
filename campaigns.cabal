@@ -41,7 +41,7 @@ library
         Handler.ConfirmSignup
         Handler.Dashboard
         Handler.Job
-        Handler.Klipfolio
+        Handler.DataApi
         Job.Types
         Job.Dispatch
         Job.Activation
@@ -92,6 +92,7 @@ library
         http-conduit -any,
         cryptonite -any,
         uuid,
+        esqueleto,
         foreign-store
     extensions: TemplateHaskell QuasiQuotes OverloadedStrings
                 NoImplicitPrelude MultiParamTypeClasses TypeFamilies GADTs

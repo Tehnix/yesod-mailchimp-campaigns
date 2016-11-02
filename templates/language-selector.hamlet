@@ -1,3 +1,8 @@
+$if messageRender MsgCurrentLanguageDetection /= (T.pack $ show lang)
+  $# If the language doesn't match, we force a reload so it updates
+  <script>
+    location.reload(true);
+
 <div #language-selector .dropdown>
   <button .dropbtn>
     _{MsgChooseYourLanguage}:

@@ -46,7 +46,8 @@ sendWelcomeMail jobId (JobValueUserMail mail) = do
   case maybeUser of
     Nothing              -> return ()
     Just (Entity _ signup) -> do
-      let mailchimpListId = case signupLanguage signup of
+      let lang = signupLanguage signup
+      let mailchimpListId = case lang of
             Danish    -> mcListIdDanish . mcListId . appMailchimp $ appSettings master
             Swedish   -> mcListIdSwedish . mcListId . appMailchimp $ appSettings master
             Norwegian -> mcListIdNorwegian . mcListId . appMailchimp $ appSettings master
@@ -55,8 +56,8 @@ sendWelcomeMail jobId (JobValueUserMail mail) = do
       let utms = case maybeGoogleAnalytics of
             Nothing -> ""
             Just _  -> "?utm_medium=email&utm_campaign=dashboard"
-      let referralUrl = render $ ReferAFriendR (signupReferralToken signup)
-      let dashboardUrl = render (DashboardR (signupDashboardToken signup)) <> utms
+      let referralUrl = render $ ReferAFriendIR lang (signupReferralToken signup)
+      let dashboardUrl = render (DashboardIR lang (signupDashboardToken signup)) <> utms
       let subscriber = MailchimpWelcome mail referralUrl dashboardUrl
       let mailHash = hexMD5 mail
       let patchUrl = parseRequest_ $ "PATCH " <> mailchimpApiEndpoint <> mailHash

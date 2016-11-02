@@ -1,3 +1,4 @@
+CurrentLanguageDetection:Norwegian
 SignupTitle:Vinn en tur til London!
 ReferralSignupTitle:Hjelp din venn, og vinn en tur til London!
 DashboardTitle:Del med dine venner!
@@ -16,7 +17,7 @@ EndsIn:Slutter om
 Now:Nå
 
 GetPrizes:Vinn flotte premier
-ParticipateInTheCompetition:Med deg på nyhetsbrevet og delta i konkurransen
+ParticipateInTheCompetition:Meld deg på nyhetsbrevet og bli med i konkurransen
 BonusDiscount:BONUS: Vi gir deg 60kr rabatt på hvisk.com!
 EmailPlaceholder:Skriv mailadressen din...
 SignupBtn:Registrer deg
@@ -31,17 +32,17 @@ CompetitionRules:Konkurransebetingelser
 ThanksForSigningUp:Takk for din registrering!
 WaitForActivationMail:Du vil straks motta en bekreftelsesmail.
 
-HowItWorksStep1:Signup og motta din unike link
-HowItWorksStep2:Du motta et gavekort på 60kr hos hvisk.com
-HowItWorksStep3:Dele din unike link, via Facebook og epost
-HowItWorksStep4:Tjen lodd for å stikke av med fete premier
+HowItWorksStep1:Sign up og motta din personlige link
+HowItWorksStep2:Du mottar et gavekort på 60 kr hos hvisk.com
+HowItWorksStep3:Del din personlige link via Facebook og e-post
+HowItWorksStep4:Samle lodd for å stikke av med fete premier
 
 Prizes:Premier
 FirstPrize:Shoppingtur til London
 SecondPrize:14k Infinity diamantring
 ThirdPrize:600kr & 1200kr hvisk gavekort
 DashboardInfoTitle:Inviter vennene dine og vinn en shoppingtur til London!
-DashboardInfo:Del din unike link på Facebook eller via mail for å være med i trekningen om fantastiske premier som hvisk smykker, Infinity 14k gull diamantring fra hvisk og vår førstepremie: en shoppingtur for to til fashionable London.
+DashboardInfo:Del din personlige link på Facebook eller via mail for å være med i trekningen om fantastiske premier som hvisk smykker, Infinity 14k gull diamantring fra hvisk og vår førstepremie: en shoppingtur for to til fashionable London.
 ShareThisLink:Del denne link
 ShareOnFacebook:Del på Facebook!
 FacebookShareTitle:Værsågod! 60kr rabatt til hvisk.com
@@ -76,8 +77,8 @@ TermsAndConditionsPrizes:Hva kan du vinne?
 TermsAndConditionsPrizesInfo:Det loddes ut et gavekort på 600kr til hvisk.com, et gavekort på 1200 kr til hvisk.com, 1 stk 14 k Infinity ring - verdi 11.000kr(leveringstid avhenger av din ringstørrelse), en tur for to til London, inkl. flybilletter, 2 netters overnatning på et flott, sentralt hotell og 2500kr i lommepenger til shopping(dato skal selv bestemmes). Man kan kun vinne én premie per husstand. Du kan delta konkurransen fra den 1. november til og med den 13. november 2016. Premien kan ikke byttes til kontanter. Hvisk betaler premieavgiften. Når du deler konkurransen i ditt nettverk, gir du hver person som registrerer seg på hvisks nyhetsbrev gjennom ditt personlige link også 60 kr rabatt på et kjøp på hvisks hjemmeside som koster med enn 350kr. Gyldig for 31. desember, 2016.
 TermsAndConditionsParticipation:Hvordan deltar du?
 TermsAndConditionsParticipationInfo1:For å delta i konkurransen skal du registrere deg til hvisks nyhetsbrev og invitere så mange venner som mulig til nyhetsbrevet. Jo flere venner du inviterer, jo større sjanse har du for å vinne en av premiene under:
-TermsAndConditionsParticipationInfoPrize1:600 kr i gavekort til hvisk(når 5 venner har registrert seg)
-TermsAndConditionsParticipationInfoPrize2:1200kr i gavekort til hvisk(når 10 venner har registrert seg)
+TermsAndConditionsParticipationInfoPrize1:5 x 600 kr i gavekort til hvisk(når 5 venner har registrert seg)
+TermsAndConditionsParticipationInfoPrize2:3 x 1200kr i gavekort til hvisk(når 10 venner har registrert seg)
 TermsAndConditionsParticipationInfoPrize3:14k Infinity diamantring fra hvisk(når 15 venner har registrert seg)
 TermsAndConditionsParticipationInfoPrize4:Shoppingtur for to til Londond inkl. 2 overnatninger og lommepenger på 2500kr(når 20 venner har registrert seg)
 TermsAndConditionsParticipationInfo2:Du deltar i trekningen om én av disse premeiene så snart du har fått enten 5, 10, 15 eller 20 venner til å registrere seg på hvisks nyhetsbrev. Deltakere som forsøker å manipulere konkurransen, utelukkes fra konkurransen.

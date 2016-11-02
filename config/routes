@@ -23,6 +23,8 @@
 
 /set-language/#Language          SetLanguageR           GET
 
-/klipfolio/subscribers/#Text     KlipSubscriberCountR   GET
+/api/subscribers/#Text           DataSubscribersR       GET
+/api/steps/#Text                 DataStepsR             GET
+/api/failedjobs/#Text            DataFailedJobR         GET
 
 /force-run-jobs                  RunJobsR               GET

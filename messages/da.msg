@@ -1,3 +1,4 @@
+CurrentLanguageDetection:Danish
 SignupTitle:Vind en tur til London!
 ReferralSignupTitle:Hjælp din ven og vind en tur til London!
 DashboardTitle:Del med dine venner!
@@ -73,16 +74,16 @@ FormAlreadySignedUp:Du er allerede tilmeldt!
 TermsAndConditionsBy:Konkurrencen afholdes af hvisk Aps som drives af:
 TermsAndConditionsByAddress:Hvisk Aps, Ny Østergade 9, 4. Sal., 1101 KØBENHAVN K, CVR-nr. 34718407
 TermsAndConditionsPrizes:Hvad kan du vinde?
-TermsAndConditionsPrizesInfo:Der udloddes et gavekort af 500kr til hvisk.com,  et gavekort af 1000kr til hvisk.com, 1 stk 14 k Infinity ring - værdi 9000kr (leveringstid afhænger din ringstørrelse), en tur for to til London, inkl. Flybilletter, 2 nætters overnatning i en lækker centralt hotel og 2000kr lommepenge til shopping (dato må selv bestemmes). Man kan kun vinde én premie per husstand. Du kan deltage i konkurrencen fra den 1. november til og med den  13. november 2016. Præmien kan ikke ombyttes til kontanter. Hvisk afholder præmieafgiften. Når du deler konkurrencen i dit netværk, giver du hver person der skriver sig ind til hvisks nyhedsbrev igennem din personlige link også 50kr rabat på et køb på hvisks hjemmeside der koster mere end 300kr. Gyldig til den 31. december, 2016.
+TermsAndConditionsPrizesInfo:Der udloddes 5 gavekort af 500kr til hvisk.com, 3 gavekort af 1000kr til hvisk.com, 1 stk 14 k Infinity ring - værdi 9000kr (leveringstid afhænger din ringstørrelse), en tur for to til London, inkl. Flybilletter, 2 overnatninger på et lækkert centralt hotel og 2000kr i lommepenge (dato må selv bestemmes). Man kan kun vinde én præmie pr. husstand. Du kan deltage i konkurrencen fra den 1. november til og med den 13. november 2016. Præmien kan ikke ombyttes til kontanter. hvisk afholder præmieafgiften. Når du deler konkurrencen i dit netværk, giver du hver person der tilmelder sig hvisks nyhedsbrev igennem din personlige link en rabat på 50 kr (Dette gælder ved køb for over 300 kr).
 TermsAndConditionsParticipation:Hvordan deltager du?
-TermsAndConditionsParticipationInfo1:For at deltage i konkurrencen skal du oprette din e-mailadresse til hvisks nyhedsbrev og invitere så mange venner til nyhedsbrevet som muligt. Jo mere venner du invitere, jo større chance du har at få en lod i puljen for at vinde én af nedenstående priser:
-TermsAndConditionsParticipationInfoPrize1:500 kr hvisk gavekort (ved tilmelding af 5 venner)
-TermsAndConditionsParticipationInfoPrize2:1000 kr hvisk gavekort (ved tilmelding af 10 venner),
-TermsAndConditionsParticipationInfoPrize3:14k infinity diamantring (ved tilmelding af 15 venner)
-TermsAndConditionsParticipationInfoPrize4:Shoppetur for to til London inkl. 2 overnatninger, 2 flybilletter og lommepenge på 2000 kr (ved tilmelding af 20 venner).
-TermsAndConditionsParticipationInfo2:Du deltager i lodtrækningen om én af disse premier så snart du har fået enten 5, 10, 15 eller 20 venner til at tilmelde sig hvisks nyhedsbrev. Deltagere, der forsøger at manipulere konkurrencen, udelukkes fra konkurrencen.
-TermsAndConditionsWinner:Hvordan findes vinderen og hvordan får vedkommende besked?
-TermsAndConditionsWinnerInfo:Vinderne findes ved lodtrækning blandt alle tilmeldinger. Vinderne får besked via e-mail og bliver trukket d. 14. november 2016. Afgørelsen af, hvem der vinder, er endelig og kan ikke ankes. Vinderen bliver offentliggjort på hvisks sociale medie sider.
+TermsAndConditionsParticipationInfo1:For at deltage i konkurrencen skal du oprette din e-mailadresse til hvisks nyhedsbrev og invitere så mange venner til nyhedsbrevet som muligt. Jo flere venner du inviterer, jo større chance har du for at vinde én af nedenstående præmier:
+TermsAndConditionsParticipationInfoPrize1:5 x 500 kr hvisk gavekort (ved tilmelding af 5 venner)
+TermsAndConditionsParticipationInfoPrize2:3 x 1000 kr hvisk gavekort (ved tilmelding af 10 venner)
+TermsAndConditionsParticipationInfoPrize3:14k Infinity diamantring (ved tilmelding af 15 venner)
+TermsAndConditionsParticipationInfoPrize4:Shoppetur for to til London inkl. 2 overnatninger, 2 flybilletter og 2000 kr. I lommepenge (ved tilmelding af 20 venner).
+TermsAndConditionsParticipationInfo2:Du deltager i lodtrækningen om én af disse præmier så snart du har fået enten 5, 10, 15 eller 20 venner til at tilmelde sig hvisks nyhedsbrev. Deltagere, der forsøger at manipulere konkurrencen, udelukkes fra konkurrencen.
+TermsAndConditionsWinner:Hvordan findes vinderne og hvordan får vedkommende besked?
+TermsAndConditionsWinnerInfo:Vinderne findes ved lodtrækning blandt alle tilmeldinger. Vinderne får besked via e-mail og bliver trukket d. 14. november 2016. Afgørelsen af, hvem der vinder, er endelig og kan ikke ankes. Vinderne bliver offentliggjort på hvisks sociale medie sider.
 TermsAndConditionsUseOfInformation:Brug af oplysninger
 TermsAndConditionsUseOfInformationInfo:Hvis du tilmelder dig tilbud og information fra hvisk giver du udtrykkeligt samtykke til, at hvisk indsamler, behandler og opbevarer dine oplysninger til de formål og på de vilkår, som er beskrevet. Hvis du tilmelder dig, accepterer du ligeledes, at hvisk må sende dig tilbud og information per e-mail. Du kan til enhver tid afmelde dig igen. Hvis du har spørgsmål er du altid velkommen til at kontakte os.
 

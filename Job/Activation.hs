@@ -44,7 +44,8 @@ sendActivationMail jobId (JobValueUserMail mail) = do
   case maybeUser of
     Nothing              -> return ()
     Just (Entity _ signup) -> do
-      let mailchimpListId = case signupLanguage signup of
+      let lang = signupLanguage signup
+      let mailchimpListId = case lang of
             Danish    -> mcListIdDanish . mcListId . appMailchimp $ appSettings master
             Swedish   -> mcListIdSwedish . mcListId . appMailchimp $ appSettings master
             Norwegian -> mcListIdNorwegian . mcListId . appMailchimp $ appSettings master
@@ -54,7 +55,7 @@ sendActivationMail jobId (JobValueUserMail mail) = do
       let utms = case maybeGoogleAnalytics of
             Nothing -> ""
             Just _  -> "?utm_medium=email&utm_campaign=activation"
-      let activationUrl = render (ActivateSignupR (signupActivationToken signup)) <> utms
+      let activationUrl = render (ActivateSignupIR lang (signupActivationToken signup)) <> utms
       let subscriber = MailchimpActivate mail activationUrl
       let postUrl = parseRequest_ $ "POST " <> mailchimpApiEndpoint
       let postRequest = HTTP.setRequestBasicAuth mailchimpApiUser mailchimpApiKey

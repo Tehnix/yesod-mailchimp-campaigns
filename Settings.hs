@@ -62,14 +62,14 @@ instance FromJSON CampaignConf where
     cmpSteps            <- o .: "steps"
     return CampaignConf {..}
 
-data KlipfolioConf = KlipfolioConf
-  { klipEndpoint :: Text
+data DataApiConf = DataApiConf
+  { dataApiEndpoint :: Text
   } deriving Show
 
-instance FromJSON KlipfolioConf where
-  parseJSON = withObject "KlipfolioConf" $ \o -> do
-    klipEndpoint <- o .: "endpoint"
-    return KlipfolioConf {..}
+instance FromJSON DataApiConf where
+  parseJSON = withObject "DataApiConf" $ \o -> do
+    dataApiEndpoint <- o .: "endpoint"
+    return DataApiConf {..}
 
 -- | Runtime settings to configure this application. These settings can be
 -- loaded from various sources: defaults, environment variables, config files,
@@ -113,7 +113,7 @@ data AppSettings = AppSettings
   , appCampaign               :: CampaignConf
   -- ^ Configuration for the campaign
 
-  , appKlipfolio              :: Maybe KlipfolioConf
+  , appDataApi                :: Maybe DataApiConf
   -- ^ Configuration for Klipfolio
 
   , appAuthDummyLogin         :: Bool
@@ -146,7 +146,7 @@ instance FromJSON AppSettings where
 
     appMailchimp              <- o .:  "mailchimp"
     appCampaign               <- o .:  "campaign"
-    appKlipfolio              <- o .:? "klipfolio"
+    appDataApi                <- o .:? "data-api"
 
     appAuthDummyLogin         <- o .:? "auth-dummy-login"      .!= defaultDev
 

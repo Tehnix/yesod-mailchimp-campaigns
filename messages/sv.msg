@@ -1,3 +1,4 @@
+CurrentLanguageDetection:Swedish
 SignupTitle:Vinn en resa till London!
 ReferralSignupTitle:Hjälp din vän att vinna en resa till London!
 DashboardTitle:Dela med dina vänner!
@@ -31,14 +32,14 @@ CompetitionRules:Tävlingsregler
 ThanksForSigningUp:Tack för din registrering!
 WaitForActivationMail:Du kommer strax att motta ett bekräftelsemail.
 
-HowItWorksStep1:Signup och få ditt unika länk
-HowItWorksStep2:Du får en kupong på 65kr til hvisk.com
-HowItWorksStep3:Dela din unika länk via Facebook och e-mail
-HowItWorksStep4:Tjäna ihop till lotter för att ha chansen att vinna följande priser
+HowItWorksStep1:Registrera dig till tävlingen och få din personliga länk
+HowItWorksStep2:Bjud in personer från ditt nätverk till hvisks nyhetsbrev genom att dela din personliga länk via Facebook eller e-post
+HowItWorksStep3:När du bjuder in dina vänner till hvisks nyhetsbrev får du 65 kronor att handla för på hvisk.com
+HowItWorksStep4:En inbjuden vän ger dig en lott till tävlingen. Ju fler lotter du samlar ihop desto större chans har du att vinna!
 
 Prizes:Priser
 FirstPrize:Shoppingresa till London
-SecondPrize:14k infinity diamantring
+SecondPrize:14k Infinity diamantring
 ThirdPrize:650kr & 1300kr i presentkort till hvisk
 DashboardInfoTitle:Bjud in dina vänner och vinn en shoppingresa till London!
 DashboardInfo:Dela din unika länk på Facebook eller via mail för att vara med och tävla om fantastiska priser som smycken från hvisk, diamantring Infinity 14k guld från hvisk och vårt förstapris: en shoppingresa för två till modets huvudstad London.
@@ -76,8 +77,8 @@ TermsAndConditionsPrizes:Vad kan du vinna?
 TermsAndConditionsPrizesInfo:Det lottas ut ett presentkort till ett värde av 650kr till hvisk.com, ett presentkort till ett värde av 1300kr till hvisk.com, en 14k infinity diamantring till ett värde av 11.000 DKK (leveranstid beror på ringstorlek), en resa till London inkl. två flygbiljetter, två nätter på ett centralt hotell och 2500kr i fickpengar till shopping (datum får du själv bestämma). Endast ett pris per hushåll. Du kan delta i tävlingen från den 1 november till och med 13 november 2016. Priset kan inte bytas till kontanter. Hvisk står för eventuella vinstskatter. När du delar tävlingen i ditt nätverk ger du varje person som signar upp till hvisks nyhetsbrev genom din personliga länk 65kr att handla för på hvisk.com, vid köp för minst 400kr. Giltigt til 31. december, 2016.
 TermsAndConditionsParticipation:Hur deltar du?
 TermsAndConditionsParticipationInfo1:För att delta i tävlingen måste du registrera din mailadress till hvisks nyhetsbrev och bjuda in så många vänner som möjligt till nyhetsbrevet. Ju fler vänner du bjuder in desto större chans har du att vinna en av följande priser:
-TermsAndConditionsParticipationInfoPrize1:650kr i presentkort till hvisk (när 5 vänner har registrerat sig)
-TermsAndConditionsParticipationInfoPrize2:1300kr i presentkort till hvisk (när 10 vänner har registrerat sig)
+TermsAndConditionsParticipationInfoPrize1:5 x 650kr i presentkort till hvisk (när 5 vänner har registrerat sig)
+TermsAndConditionsParticipationInfoPrize2:3 x 1300kr i presentkort till hvisk (när 10 vänner har registrerat sig)
 TermsAndConditionsParticipationInfoPrize3:14k infinity diamantring från hvisk (när 15 vänner har registrerat sig)
 TermsAndConditionsParticipationInfoPrize4:Shoppingresa till London för två personer inkl. två övernattningar, två flygbiljetter och 2500 kr i fickpengar (när 20 vänner har registrerat sig).
 TermsAndConditionsParticipationInfo2:Du deltar i dragningen om en av dessa priser när du fått 5, 10, 15 eller 20 vänner att registrera sig till hvisks nyhetsbrev. Deltagare som försöker manipulera tävlingen kommer diskvalificeras.

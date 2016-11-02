@@ -48,3 +48,6 @@ campaign:
   disallowDomains: ["lortemail.dk", "lukop.dk", "d3p.dk", "yopmail.com", "mailnesia.com"]
   disallowPatterns: ["+"]
   steps: [5, 10, 15, 20]
+
+#data-api:
+#  endpoint: "LONG_SECRET_URL_STRING"

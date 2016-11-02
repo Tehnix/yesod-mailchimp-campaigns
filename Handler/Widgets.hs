@@ -1,5 +1,6 @@
 module Handler.Widgets where
-import Import
+import           Import
+import qualified Data.Text as T
 
 -- | Pull in the signup banner widget
 signupBannerWidget :: Widget
@@ -16,4 +17,5 @@ termsAndConditionsTextWidget = do
 -- | Language selector widget
 languageSelectorWidget :: Language -> (Language -> Route App) -> Widget
 languageSelectorWidget lang route = do
+  messageRender <- getMessageRender
   $(widgetFile "language-selector")
