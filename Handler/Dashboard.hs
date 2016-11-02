@@ -1,10 +1,11 @@
 module Handler.Dashboard where
-import qualified Data.Text         as T
+
 import           Import
+
+import qualified Data.Text         as T
 import qualified Network.HTTP.Base as HTTP (urlEncode)
 
 import           Handler.Widgets   (languageSelectorWidget)
-
 
 -- | A dashboard showing the progress of the users referrals
 getDashboardR :: Text -> Handler Html

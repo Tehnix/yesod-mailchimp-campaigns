@@ -1,9 +1,9 @@
 module Handler.ReferAFriend where
-import           Import
 
-import           Handler.SignupForm (signupForm)
-import           Handler.Widgets    (languageSelectorWidget, signupBannerWidget)
+import Import
 
+import Handler.SignupForm (signupForm)
+import Handler.Widgets    (languageSelectorWidget, signupBannerWidget)
 
 -- | The signup page with a referrer
 getReferAFriendR :: Text -> Handler Html

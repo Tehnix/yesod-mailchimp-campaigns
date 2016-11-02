@@ -1,7 +1,7 @@
 module Handler.Job where
-import           Import
-import           Job.Dispatch
 
+import Import
+import Job.Dispatch
 
 getRunJobsR :: Handler Html
 getRunJobsR = do

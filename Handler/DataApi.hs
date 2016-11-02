@@ -1,6 +1,6 @@
 module Handler.DataApi where
-import           Import
 
+import Import
 
 data DataSubscribers = DataSubscribers
   { dataSubscribersEnabled      :: Bool

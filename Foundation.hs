@@ -1,14 +1,15 @@
 module Foundation where
-import           Import.NoFoundation
-import           Database.Persist.Sql           (ConnectionPool, runSqlPool)
-import           Text.Hamlet                    (hamletFile)
-import           Text.Jasmine                   (minifym)
 
-import           Yesod.Default.Util             (addStaticContentExternal)
-import           Yesod.Core.Types               (Logger)
-import qualified Yesod.Core.Unsafe    as Unsafe
-import qualified Data.CaseInsensitive as CI
-import qualified Data.Text.Encoding   as TE
+import           Database.Persist.Sql      (ConnectionPool, runSqlPool)
+import           Import.NoFoundation
+import           Text.Hamlet               (hamletFile)
+import           Text.Jasmine              (minifym)
+
+import qualified Data.CaseInsensitive      as CI
+import qualified Data.Text.Encoding        as TE
+import           Yesod.Core.Types          (Logger)
+import qualified Yesod.Core.Unsafe         as Unsafe
+import           Yesod.Default.Util        (addStaticContentExternal)
 
 import           Internationalization.Form
 
@@ -56,7 +57,7 @@ instance Yesod App where
   -- see: https://github.com/yesodweb/yesod/wiki/Overriding-approot
   approot = ApprootRequest $ \app req ->
     case appRoot $ appSettings app of
-      Nothing -> getApprootText guessApproot app req
+      Nothing   -> getApprootText guessApproot app req
       Just root -> root
 
   -- Store session data on the client in encrypted cookies,

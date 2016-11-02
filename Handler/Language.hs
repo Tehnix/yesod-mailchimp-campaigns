@@ -1,6 +1,6 @@
 module Handler.Language where
-import           Import
 
+import Import
 
 getSetLanguageR :: Language -> Handler Html
 getSetLanguageR lang = do

@@ -1,9 +1,9 @@
 module Handler.Signup where
-import           Import
 
-import           Handler.SignupForm (signupForm)
-import           Handler.Widgets    (languageSelectorWidget, signupBannerWidget)
+import Import
 
+import Handler.SignupForm (signupForm)
+import Handler.Widgets    (languageSelectorWidget, signupBannerWidget)
 
 -- | The signup page without any referrer
 getSignupR :: Handler Html

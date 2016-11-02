@@ -1,5 +1,7 @@
 module Handler.Widgets where
+
 import           Import
+
 import qualified Data.Text as T
 
 -- | Pull in the signup banner widget

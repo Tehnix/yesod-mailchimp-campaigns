@@ -1,14 +1,14 @@
-module Job.Welcome (
-  sendWelcomeMail
- ) where
+module Job.Welcome
+  ( sendWelcomeMail
+  ) where
 
 import           Import
-import qualified Network.HTTP.Simple        as HTTP
+
+import qualified Crypto.Hash                as CH
+import qualified Data.ByteString.Lazy.Char8 as C
 import qualified Data.Text                  as T
 import qualified Data.Text.Encoding         as T
-import qualified Data.ByteString.Lazy.Char8 as C
-import qualified Crypto.Hash                as CH
-
+import qualified Network.HTTP.Simple        as HTTP
 
 data MailchimpWelcome = MailchimpWelcome Text Text Text deriving Show
 

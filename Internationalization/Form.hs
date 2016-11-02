@@ -1,6 +1,6 @@
 module Internationalization.Form where
-import           Import.NoFoundation
 
+import Import.NoFoundation
 
 danishFormMessage :: FormMessage -> Text
 danishFormMessage MsgValueRequired = "Indtast venligst en email!"

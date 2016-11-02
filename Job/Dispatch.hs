@@ -1,12 +1,11 @@
-module Job.Dispatch (
-  dispatchJob
+module Job.Dispatch
+  ( dispatchJob
   ) where
-import           Import
-import           Job.Activation
-import           Job.StepAchieved
-import           Job.Welcome
-import           Job.Tracking
-
+import Import
+import Job.Activation
+import Job.StepAchieved
+import Job.Tracking
+import Job.Welcome
 
 -- | Dispatch jobs to their repsective handlers
 dispatchJob :: Entity Job -> HandlerT App IO ()

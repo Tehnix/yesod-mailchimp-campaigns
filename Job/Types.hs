@@ -1,7 +1,7 @@
 {-# LANGUAGE FlexibleInstances #-}
 module Job.Types where
-import ClassyPrelude.Yesod
 
+import ClassyPrelude.Yesod
 
 data JobAction = SendActiviatonMail
                | SendWelcomeMail

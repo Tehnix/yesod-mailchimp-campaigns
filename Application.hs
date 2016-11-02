@@ -1,28 +1,28 @@
 {-# OPTIONS_GHC -fno-warn-orphans #-}
 module Application
-    ( getApplicationDev
-    , appMain
-    , develMain
-    , makeFoundation
-    , makeLogWare
-    -- * for DevelMain
-    , getApplicationRepl
-    , shutdownApp
-    -- * for GHCI
-    , handler
-    , db
-    ) where
+  ( getApplicationDev
+  , appMain
+  , develMain
+  , makeFoundation
+  , makeLogWare
+  -- * for DevelMain
+  , getApplicationRepl
+  , shutdownApp
+  -- * for GHCI
+  , handler
+  , db
+  ) where
 
 import Control.Monad.Logger                 (liftLoc, runLoggingT)
 import Database.Persist.Postgresql          (createPostgresqlPool, pgConnStr,
                                              pgPoolSize, runSqlPool)
 import Import
 import Language.Haskell.TH.Syntax           (qLocation)
-import Network.Wai (Middleware)
+import Network.Wai                          (Middleware)
 import Network.Wai.Handler.Warp             (Settings, defaultSettings,
                                              defaultShouldDisplayException,
-                                             runSettings, setHost,
-                                             setOnException, setPort, getPort)
+                                             getPort, runSettings, setHost,
+                                             setOnException, setPort)
 import Network.Wai.Middleware.RequestLogger (Destination (Logger),
                                              IPAddrSource (..),
                                              OutputFormat (..), destination,
@@ -32,15 +32,15 @@ import System.Log.FastLogger                (defaultBufSize, newStdoutLoggerSet,
 -- Import all relevant handler modules here.
 -- Don't forget to add new modules to your cabal file!
 import Handler.Common
-import Handler.Language
-import Handler.TermsAndConditions
-import Handler.Signup
-import Handler.ReferAFriend
-import Handler.SignupForm
 import Handler.ConfirmSignup
 import Handler.Dashboard
-import Handler.Job
 import Handler.DataApi
+import Handler.Job
+import Handler.Language
+import Handler.ReferAFriend
+import Handler.Signup
+import Handler.SignupForm
+import Handler.TermsAndConditions
 
 -- This line actually creates our YesodDispatch instance. It is the second half
 -- of the call to mkYesodData which occurs in Foundation.hs. Please see the
@@ -91,7 +91,7 @@ makeApplication foundation = do
   logWare <- makeLogWare foundation
   -- Create the WAI application and apply middlewares
   appPlain <- toWaiAppPlain foundation
-  return $ logWare $ defaultMiddlewaresNoLogging appPlain
+  return . logWare $ defaultMiddlewaresNoLogging appPlain
 
 makeLogWare :: App -> IO Middleware
 makeLogWare foundation =
@@ -103,7 +103,7 @@ makeLogWare foundation =
                   (if appIpFromHeader $ appSettings foundation
                       then FromFallback
                       else FromSocket)
-      , destination = Logger $ loggerSet $ appLogger foundation
+      , destination = Logger . loggerSet $ appLogger foundation
       }
 
 
@@ -111,14 +111,14 @@ makeLogWare foundation =
 warpSettings :: App -> Settings
 warpSettings foundation =
     setPort (appPort $ appSettings foundation)
-  $ setHost (appHost $ appSettings foundation)
+  . setHost (appHost $ appSettings foundation)
   $ setOnException (\_req e -> when (defaultShouldDisplayException e) $ messageLoggerSource
       foundation
       (appLogger foundation)
       $(qLocation >>= liftLoc)
       "yesod"
       LevelError
-      (toLogStr $ "Exception from Warp: " ++ show e))
+      (toLogStr $ "Exception from Warp: " <> show e))
     defaultSettings
 
 -- | For yesod devel, return the Warp settings and WAI Application.
@@ -157,7 +157,6 @@ appMain = do
   -- Run the application with Warp
   runSettings (warpSettings foundation) app
 
-
 --------------------------------------------------------------
 -- Functions for DevelMain.hs (a way to run the app from GHCi)
 --------------------------------------------------------------
@@ -171,7 +170,6 @@ getApplicationRepl = do
 
 shutdownApp :: App -> IO ()
 shutdownApp _ = return ()
-
 
 ---------------------------------------------
 -- Functions for use in development with GHCi

@@ -1,15 +1,15 @@
-module Job.Tracking (
-  sendGoogleAnalyticsTracking
- ) where
+module Job.Tracking
+  ( sendGoogleAnalyticsTracking
+  ) where
 
 import           Import
-import qualified Network.HTTP.Simple        as HTTP
+
+import qualified Data.ByteString.Lazy.Char8 as C
 import qualified Data.Text                  as T
 import qualified Data.Text.Encoding         as T
-import qualified Data.ByteString.Lazy.Char8 as C
 import qualified Data.UUID                  as UU
 import qualified Data.UUID.V1               as UU
-
+import qualified Network.HTTP.Simple        as HTTP
 
 googleAnalyticsApiEndpoint :: String
 googleAnalyticsApiEndpoint = "http://www.google-analytics.com/collect"

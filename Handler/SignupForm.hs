@@ -1,11 +1,11 @@
 module Handler.SignupForm where
+import           Import
+
 import           Data.Char         (chr, ord)
 import qualified Data.Text         as T
-import           Import
 import qualified Network.HTTP.Base as HTTP (urlEncode)
 import qualified Prelude           as P (head)
 import           System.Random
-
 
 data SignupForm = SignupForm
   { signupFormEmail    :: Text

@@ -1,10 +1,11 @@
 module Handler.ConfirmSignup where
-import           Data.List       (elemIndex)
-import           Data.Maybe      (fromJust)
-import           Import
 
-import           Handler.Widgets (languageSelectorWidget, signupBannerWidget)
+import Import
 
+import Data.List       (elemIndex)
+import Data.Maybe      (fromJust)
+
+import Handler.Widgets (languageSelectorWidget, signupBannerWidget)
 
 -- | Notify the user that they have signed up
 getConfirmSignupIR :: Language -> Handler Html
