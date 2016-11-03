@@ -2,8 +2,32 @@ module Handler.DataApi where
 
 import Import
 
+data DataErrorResponse = DataErrorResponse
+  { dataErrorResponseStatus  :: Int
+  , dataErrorResponseMessage :: Text
+  }
+
+instance ToJSON DataErrorResponse where
+  toJSON DataErrorResponse {..} = object
+    [ "status"  .= dataErrorResponseStatus
+    , "message" .= dataErrorResponseMessage
+    ]
+
+-- | Check if the endpoint has the valid key and return a response if it has,
+-- else return an error response.
+maybeEndpointResponse :: Text -> Handler Value -> Handler Value
+maybeEndpointResponse endpoint response = do
+  master <- getYesod
+  let accessForbidden = returnJson $ DataErrorResponse 403 "Access forbidden"
+  let missingSettings = returnJson $ DataErrorResponse 501 "Endpoint not enabled"
+  case appDataApi $ appSettings master of
+    Nothing      -> missingSettings
+    Just dataApi -> if endpoint == dataApiEndpoint dataApi
+                      then response
+                      else accessForbidden
+
 data DataSubscribers = DataSubscribers
-  { dataSubscribersEnabled      :: Bool
+  { dataSubscribersStatus       :: Int
   , dataSubscribersActivated    :: Int
   , dataSubscribersNotActivated :: Int
   , dataSubscribersTotal        :: Int
@@ -11,32 +35,22 @@ data DataSubscribers = DataSubscribers
 
 instance ToJSON DataSubscribers where
   toJSON DataSubscribers {..} = object
-    [ "enabled"         .= dataSubscribersEnabled
+    [ "status"          .= dataSubscribersStatus
     , "activated"       .= dataSubscribersActivated
     , "notActivated"    .= dataSubscribersNotActivated
     , "total"           .= dataSubscribersTotal
     ]
 
--- | Report how many subscribers there are
+-- | Report how many subscribers there are.
 getDataSubscribersR :: Text -> Handler Value
-getDataSubscribersR endpoint = do
-  master <- getYesod
-  let emptyResponse = returnJson $ DataSubscribers False 0 0 0
-  let maybeDataApi = appDataApi $ appSettings master
-  case maybeDataApi of
-    Nothing        -> emptyResponse
-    Just dataApi -> do
-      let validEndpoint = dataApiEndpoint dataApi
-      case endpoint == validEndpoint of
-        False -> emptyResponse
-        True  -> do
-          total <- runDB $ count ([] :: [Filter Signup])
-          activated <- runDB $ count [SignupActivated ==. True]
-          notActivated <- runDB $ count [SignupActivated ==. False]
-          returnJson $ DataSubscribers True activated notActivated total
+getDataSubscribersR endpoint = maybeEndpointResponse endpoint $ do
+  total <- runDB $ count ([] :: [Filter Signup])
+  activated <- runDB $ count [SignupActivated ==. True]
+  notActivated <- runDB $ count [SignupActivated ==. False]
+  returnJson $ DataSubscribers 200 activated notActivated total
 
 data DataReachedSteps = DataReachedSteps
-  { dataReachedStepEnabled     :: Bool
+  { dataReachedStepStatus      :: Int
   , dataReachedStepNoSteps     :: Int
   , dataReachedStepAccumulated :: DataSteps
   , dataReachedStepUnique      :: DataSteps
@@ -51,7 +65,7 @@ data DataSteps = DataSteps
 
 instance ToJSON DataReachedSteps where
   toJSON DataReachedSteps {..} = object
-    [ "enabled"     .= dataReachedStepEnabled
+    [ "status"      .= dataReachedStepStatus
     , "noSteps"     .= dataReachedStepNoSteps
     , "accumulated" .= dataReachedStepAccumulated
     , "unique"      .= dataReachedStepUnique
@@ -66,40 +80,29 @@ instance ToJSON DataSteps where
     ]
 
 -- | Report how many have reached each step, by looking at how many SendStepAchievedMail
--- jobs have been queued
+-- jobs have been queued.
 getDataStepsR :: Text -> Handler Value
-getDataStepsR endpoint = do
-  master <- getYesod
-  let emptyResponseSteps = DataSteps 0 0 0 0
-  let emptyResponse = returnJson $ DataReachedSteps False 0 emptyResponseSteps emptyResponseSteps
-  let maybeDataApi = appDataApi $ appSettings master
-  case maybeDataApi of
-    Nothing        -> emptyResponse
-    Just dataApi -> do
-      let validEndpoint = dataApiEndpoint dataApi
-      case endpoint == validEndpoint of
-        False -> emptyResponse
-        True  -> do
-          activatedSignups <- runDB $ count [SignupActivated ==. True]
-          stepsAchieved <- runDB $ selectList [JobAction ==. SendStepAchievedMail] []
-          let step4 = length $ filter (matchesStep 4) stepsAchieved
-          let step3 = length $ filter (matchesStep 3) stepsAchieved
-          let step2 = length $ filter (matchesStep 2) stepsAchieved
-          let step1 = length $ filter (matchesStep 1) stepsAchieved
-          let noSteps = activatedSignups - step1
-          let accumulatedSteps = DataSteps step1 step2 step3 step4
-          let uniqueSteps = DataSteps
-                                   (step1 - step2)
-                                   (step2 - step3)
-                                   (step3 - step4)
-                                   step4
-          returnJson $ DataReachedSteps True noSteps accumulatedSteps uniqueSteps
+getDataStepsR endpoint = maybeEndpointResponse endpoint $ do
+  activatedSignups <- runDB $ count [SignupActivated ==. True]
+  stepsAchieved <- runDB $ selectList [JobAction ==. SendStepAchievedMail] []
+  let step4 = length $ filter (matchesStep 4) stepsAchieved
+  let step3 = length $ filter (matchesStep 3) stepsAchieved
+  let step2 = length $ filter (matchesStep 2) stepsAchieved
+  let step1 = length $ filter (matchesStep 1) stepsAchieved
+  let noSteps = activatedSignups - step1
+  let accumulatedSteps = DataSteps step1 step2 step3 step4
+  let uniqueSteps = DataSteps
+                           (step1 - step2)
+                           (step2 - step3)
+                           (step3 - step4)
+                           step4
+  returnJson $ DataReachedSteps 200 noSteps accumulatedSteps uniqueSteps
   where
     matchesStep :: Int -> Entity Job -> Bool
     matchesStep step (Entity _ job) = let (JobValueStepNumber _ s) = jobValue job in step == s
 
 data DataFailedJob = DataFailedJob
-  { dataFailedJobEnabled          :: Bool
+  { dataFailedJobStatus           :: Int
   , dataFailedJobTotal            :: Int
   , dataFailedJobMemberExists     :: [Text]
   , dataFailedJobResourceNotFound :: [Text]
@@ -107,32 +110,23 @@ data DataFailedJob = DataFailedJob
 
 instance ToJSON DataFailedJob where
   toJSON DataFailedJob {..} = object
-    [ "enabled"          .= dataFailedJobEnabled
+    [ "status"           .= dataFailedJobStatus
     , "total"            .= dataFailedJobTotal
     , "memberExists"     .= dataFailedJobMemberExists
     , "resourceNotFound" .= dataFailedJobResourceNotFound
     ]
 
--- | Report how jobs failed, and show the emails classified under certain errors
+-- | Report how jobs failed, and show the emails classified under certain errors.
 getDataFailedJobR :: Text -> Handler Value
-getDataFailedJobR endpoint = do
-  master <- getYesod
-  let emptyResponse = returnJson $ DataFailedJob False 0 [] []
-  let maybeDataApi = appDataApi $ appSettings master
-  case maybeDataApi of
-    Nothing        -> emptyResponse
-    Just dataApi -> do
-      let validEndpoint = dataApiEndpoint dataApi
-      case endpoint == validEndpoint of
-        False -> emptyResponse
-        True  -> do
-          failedJobs <- runDB $ selectList [JobFinished ==. False, JobAttempt >. 0] []
-          let memberExists = extractMail <$> filter (containsText "Member Exists") failedJobs
-          let resourceNotFound = extractMail <$> filter (containsText "Resource Not Found") failedJobs
-          returnJson $ DataFailedJob True (length failedJobs) memberExists resourceNotFound
+getDataFailedJobR endpoint = maybeEndpointResponse endpoint $ do
+  failedJobs <- runDB $ selectList [JobFinished ==. False, JobAttempt >. 0] []
+  let memberExists = extractMail <$> filter (containsText "Member Exists") failedJobs
+  let resourceNotFound = extractMail <$> filter (containsText "Resource Not Found") failedJobs
+  returnJson $ DataFailedJob 200 (length failedJobs) memberExists resourceNotFound
   where
     containsText :: Text -> Entity Job -> Bool
     containsText match (Entity _ job) = match `isInfixOf` (fromMaybe "" (jobResult job))
+
     extractMail :: Entity Job -> Text
     extractMail (Entity _ job) = case jobValue job of
       JobValueUserMail mail     -> mail
