@@ -4,11 +4,11 @@ module Job.Activation
 
 import           Import
 
-import qualified Crypto.Hash                as CH
 import qualified Data.ByteString.Lazy.Char8 as C
-import qualified Data.Text                  as T
 import qualified Data.Text.Encoding         as T
 import qualified Network.HTTP.Simple        as HTTP
+
+import           Job.Common
 
 data MailchimpActivate = MailchimpActivate Text Text deriving Show
 
@@ -26,64 +26,43 @@ instance ToJSON MailchimpActivate where
                   ]
            ]
 
-hexMD5 :: Text -> String
-hexMD5 s = show (CH.hash (T.encodeUtf8 s) :: CH.Digest CH.MD5)
-
--- | Add the user to mailchimp list
+-- | Add the user to mailchimp list.
 sendActivationMail :: Key Job -> JobValue -> HandlerT App IO ()
 sendActivationMail jobId (JobValueUserMail mail) = do
   $logInfo $ "Running sendActivationMail job for " <> mail
-  -- Get the mailchimp API settings
   master <- getYesod
-  let maybeGoogleAnalytics = appAnalytics $ appSettings master
-  let mailchimpApiUser = T.encodeUtf8 . mcApiUser . appMailchimp $ appSettings master
-  let mailchimpApiKey = T.encodeUtf8 . mcApiKey . appMailchimp $ appSettings master
-  let mailchimpApiLocation = mcApiLocation . appMailchimp $ appSettings master
-  now <- liftIO getCurrentTime
   maybeUser <- runDB . getBy $ UniqueEmail mail
   case maybeUser of
-    Nothing              -> return ()
+    Nothing                -> return ()
     Just (Entity _ signup) -> do
-      let lang = signupLanguage signup
-      let mailchimpListId = case lang of
-            Danish    -> mcListIdDanish . mcListId . appMailchimp $ appSettings master
-            Swedish   -> mcListIdSwedish . mcListId . appMailchimp $ appSettings master
-            Norwegian -> mcListIdNorwegian . mcListId . appMailchimp $ appSettings master
-      let mailchimpApiEndpoint = T.unpack $ "http://" <> mailchimpApiLocation <> ".api.mailchimp.com/3.0/lists/" <> mailchimpListId <> "/members/"
+      now <- liftIO getCurrentTime
       render <- getUrlRender
-      -- Add analytics tracking to the URL if it is set
-      let utms = case maybeGoogleAnalytics of
+      let lang = signupLanguage signup
+      -- Add analytics tracking to the URL if it is set.
+      let utms = case appAnalytics $ appSettings master of
             Nothing -> ""
             Just _  -> "?utm_medium=email&utm_campaign=activation"
       let activationUrl = render (ActivateSignupIR lang (signupActivationToken signup)) <> utms
       let subscriber = MailchimpActivate mail activationUrl
-      let postUrl = parseRequest_ $ "POST " <> mailchimpApiEndpoint
-      let postRequest = HTTP.setRequestBasicAuth mailchimpApiUser mailchimpApiKey
-                      . HTTP.setRequestIgnoreStatus
-                      $ HTTP.setRequestBodyJSON subscriber postUrl
+      let postRequest = mailchimpPostRequest master lang subscriber
       postResponse <- liftIO $ HTTP.httpLBS postRequest
       let postResp = T.decodeUtf8 . C.toStrict $ HTTP.getResponseBody postResponse
       -- Check if the API call was successful or not
       case HTTP.getResponseStatusCode postResponse of
-        -- Status code 200 indicates the user was successfully added
+        -- Status code 200 indicates the user was successfully added.
         200 -> runDB $ update jobId [JobFinished =. True, JobUpdated =. now, JobResult =. Just postResp]
-
         -- If we get a status code 400, the user already exists and we need to
-        -- send a PATCH request instead to update their information
+        -- send a PATCH request instead to update their information.
         400 -> do
-          let mailHash = hexMD5 mail
-          let patchUrl = parseRequest_ $ "PATCH " <> mailchimpApiEndpoint <> mailHash
-          let patchRequest = HTTP.setRequestBasicAuth mailchimpApiUser mailchimpApiKey
-                           . HTTP.setRequestIgnoreStatus
-                           $ HTTP.setRequestBodyJSON subscriber patchUrl
+          let patchRequest = mailchimpPatchRequest master lang subscriber mail
           patchResponse <- liftIO $ HTTP.httpLBS patchRequest
           let patchResp = T.decodeUtf8 . C.toStrict $ HTTP.getResponseBody patchResponse
-          -- Check if the API call was successful or not
+          -- Check if the API call was successful or not.
           case HTTP.getResponseStatusCode patchResponse of
             200 -> runDB $ update jobId [JobFinished =. True, JobUpdated =. now, JobResult =. Just patchResp]
             _   -> runDB $ update jobId [JobUpdated =. now, JobResult =. Just patchResp]
 
-        -- Any other status code and the job is marked as failed
+        -- Any other status code and the job is marked as failed.
         _   -> runDB $ update jobId [JobUpdated =. now, JobResult =. Just "Failed"]
 
       return ()

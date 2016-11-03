@@ -7,30 +7,25 @@ import qualified Network.HTTP.Base as HTTP (urlEncode)
 
 import           Handler.Widgets   (languageSelectorWidget)
 
--- | A dashboard showing the progress of the users referrals
+-- | A dashboard showing the progress of the users referrals.
 getDashboardR :: Text -> Handler Html
 getDashboardR dashboardToken = redirect $ DashboardIR defaultLanguage dashboardToken
 
 getDashboardIR :: Language -> Text -> Handler Html
 getDashboardIR lang dashboardToken = do
-  -- Set the ultimate destination so we can redirect back correctly later on
-  setUltDestCurrent
-  setLanguage' lang
   render <- getUrlRender
   messageRender <- getMessageRender
   master <- getYesod
   maybeDashboard <- runDB . getBy $ UniqueDashboardToken dashboardToken
-  let maybeGoogleAnalytics = appAnalytics $ appSettings master
-  let route lang' = DashboardIR lang' dashboardToken
   case maybeDashboard of
     Nothing -> do
       setMessageI MsgNotAValidDashboardKey
       redirect $ SignupIR lang
     Just (Entity signupId signup) -> do
-      let utmsFacebook = case maybeGoogleAnalytics of
+      let utmsFacebook = case appAnalytics $ appSettings master of
             Nothing -> ""
             Just _  -> "?utm_medium=facebook&utm_campaign=referral"
-      let utmsDirectLink = case maybeGoogleAnalytics of
+      let utmsDirectLink = case appAnalytics $ appSettings master of
             Nothing -> rawJS ("" :: Text)
             Just _  -> rawJS ("?utm_medium=direct+link&utm_campaign=referral" :: Text)
       let referralToken = signupReferralToken signup
@@ -50,3 +45,5 @@ getDashboardIR lang dashboardToken = do
       internationalLayout lang $ do
         setTitleI MsgDashboardTitle
         $(widgetFile "dashboard")
+  where
+    route lang' = DashboardIR lang' dashboardToken

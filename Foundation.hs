@@ -163,6 +163,7 @@ internationalLayout lang widget = do
   master <- getYesod
   messageRender <- getMessageRender
   render <- getUrlRender
+  setLanguage' lang
   let facebookShareImage = case lang of
         Danish    -> render $ StaticR images_facebookshareda_jpg
         Swedish   -> render $ StaticR images_facebooksharese_jpg

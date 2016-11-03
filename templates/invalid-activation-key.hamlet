@@ -5,4 +5,4 @@
   <h1>
     _{MsgAnErrorOccurred}
   <p>
-    #{errorMessage}
+    _{MsgInvalidActivationKeyTitle}

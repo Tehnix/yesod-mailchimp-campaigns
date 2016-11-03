@@ -21,8 +21,6 @@
 
 !/#Language/invalid-activation   InvalidActivationKeyIR GET
 
-/set-language/#Language          SetLanguageR           GET
-
 /api/subscribers/#Text           DataSubscribersR       GET
 /api/steps/#Text                 DataStepsR             GET
 /api/failedjobs/#Text            DataFailedJobR         GET

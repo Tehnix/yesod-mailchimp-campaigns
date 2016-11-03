@@ -36,7 +36,6 @@ import Handler.ConfirmSignup
 import Handler.Dashboard
 import Handler.DataApi
 import Handler.Job
-import Handler.Language
 import Handler.ReferAFriend
 import Handler.Signup
 import Handler.SignupForm

@@ -32,7 +32,6 @@ library
         Internationalization.Types
         Internationalization.Form
         Handler.Common
-        Handler.Language
         Handler.TermsAndConditions
         Handler.Widgets
         Handler.Signup
@@ -44,6 +43,7 @@ library
         Handler.DataApi
         Job.Types
         Job.Dispatch
+        Job.Common
         Job.Activation
         Job.Welcome
         Job.StepAchieved

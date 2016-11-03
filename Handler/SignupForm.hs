@@ -13,25 +13,23 @@ data SignupForm = SignupForm
   , signupFormReferrer :: Maybe Text
   } deriving Show
 
--- | Handle the form submission from the signup page and redirect accordingly
+-- | Handle the form submission from the signup page and redirect accordingly.
 postSignupR :: Handler Html
 postSignupR = do
   master <- getYesod
-  let disallowedDomains = cmpDisallowDomains . appCampaign $ appSettings master
-  let disallowedPatterns = cmpDisallowPatterns . appCampaign $ appSettings master
   messageRender <- getMessageRender
-  ((result, _), _) <- runFormPost $ signupForm disallowedDomains disallowedPatterns defaultLanguage messageRender Nothing
+  ((result, _), _) <- runFormPost $ signupForm master defaultLanguage messageRender Nothing
   case result of
     FormSuccess res -> do
+      -- Check if the mail already exists in the system.
       let mail = signupFormEmail res
-      -- Check if the mail already exists in the system
       maybeCheckMail <- runDB . getBy $ UniqueEmail mail
       case maybeCheckMail of
         Just _  -> do
           setMessageI MsgFormAlreadySignedUp
           redirectUltDest SignupR
         Nothing -> do
-          -- Only add the user if they don't already exist
+          -- Only add the user if they don't already exist.
           referredBy <- maybeReferrer $ signupFormReferrer res
           referralToken <- generateToken 45
           dashboardToken <- generateToken 30
@@ -39,7 +37,7 @@ postSignupR = do
           now <- liftIO getCurrentTime
           let lang = signupFormLanguage res
           -- Insert the new user into the database, and schedule the activation
-          -- mail to be sent out
+          -- mail to be sent out.
           _ <- runDB $ do
              _ <- insert $ Signup mail referredBy referralToken dashboardToken activationToken False lang now now
              insert $ Job SendActiviatonMail (JobValueUserMail mail) Nothing 0 False now now
@@ -51,7 +49,7 @@ postSignupR = do
       setMessage $ toHtml $ P.head msg
       redirectUltDest SignupR
   where
-    -- Extract the referrer ID from a referral token
+    -- Extract the referrer ID from a referral token.
     maybeReferrer referrer = do
       case referrer of
         Nothing -> return Nothing
@@ -60,26 +58,31 @@ postSignupR = do
           case maybeRef of
             Nothing                    -> return Nothing
             Just (Entity referrerId _) -> return $ Just referrerId
-    -- Helper functions to filter out unwanted characters
+    -- Helper functions to filter out unwanted characters.
     illegalChars = [':', ';', '<', '=', '>', '?', '@', '[', '\\', ']', '^', '_', '`']
     replaceChar = fmap $ (\c -> if c `elem` illegalChars then chr (ord c - 8) else c)
     replaceSpace = filter (/= '"')
-    -- Generate a random token
+    -- Generate a random token, used for the activation key, dashboard token and
+    -- referral token.
     generateToken l = do
       gen <- liftIO newStdGen
       let ns = randomRs ('1', 'y') gen
       let randomString = replaceSpace . replaceChar . show $ take l ns
       return . T.pack $ HTTP.urlEncode randomString
 
--- | Construct the mail signup form
-signupForm :: [Text] -> [Text] -> Language -> (AppMessage -> Text) -> Maybe Text -> Html -> MForm Handler (FormResult SignupForm, Widget)
-signupForm disallowedDomains disallowedPatterns lang messageRender referrer = renderDivs $ SignupForm
+-- | Construct the mail signup form. The mail is required, along with the
+-- language being passed in a hidden field. Only optional field is the referrer
+-- which is set if the user has been referred.
+signupForm :: App -> Language -> (AppMessage -> Text) -> Maybe Text -> Html -> MForm Handler (FormResult SignupForm, Widget)
+signupForm master lang messageRender referrer = renderDivs $ SignupForm
   <$> areq signupEmailField (FieldSettings "" Nothing (Just "email-input") Nothing [("placeholder", messageRender MsgEmailPlaceholder)]) Nothing
   <*> areq hiddenField "" (Just lang)
   <*> case referrer of
     Nothing  -> aopt hiddenField "" Nothing
     Just ref -> aopt hiddenField "" $ Just (Just (toPathPiece ref))
   where
+    disallowedDomains = cmpDisallowDomains . appCampaign $ appSettings master
+    disallowedPatterns = cmpDisallowPatterns . appCampaign $ appSettings master
     -- Check if the string contains the pattern in the user part of the email
     containsChar :: Text -> Text -> Bool
     containsChar s mail = isInfixOf s $ T.takeWhile (\c -> c /= '@') mail

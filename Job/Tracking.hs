@@ -24,8 +24,8 @@ mkTrackingPayload uaCode jobName uid content = do
     Nothing   -> return ""
     Just uuid -> return $ "v=1&t=event&ds=backend&tid=" <> uaCode <> "&cid=" <> (UU.toText uuid) <> "&uid=" <> uid <> "&cn=" <> jobName <> "&cm=backend&ni=1" <> utmContent
 
-sendTrackingEvent :: MonadIO m => Text -> m (Either Text Text)
-sendTrackingEvent payload = do
+trackingPostRequest :: MonadIO m => Text -> m (Either Text Text)
+trackingPostRequest payload = do
   let postUrl = parseRequest_ $ "POST " <> googleAnalyticsApiEndpoint
   let requestPayload = C.fromStrict $ T.encodeUtf8 payload
   let postRequest = HTTP.setRequestIgnoreStatus
@@ -36,34 +36,26 @@ sendTrackingEvent payload = do
     200 -> return $ Right postResp
     _   -> return $ Left postResp
 
--- | Track the event with Google Analytics
+sendTrackingEvent :: Text -> Maybe (Entity Signup) -> Text -> Maybe Text -> HandlerT App IO ()
+sendTrackingEvent uaCode maybeSignup jobName content = do
+  case maybeSignup of
+    Just (Entity signupId _) -> do
+      let uid = T.pack $ show signupId
+      payload <- liftIO $ mkTrackingPayload uaCode jobName uid content
+      _ <- trackingPostRequest payload
+      return ()
+    Nothing -> return ()
+
+-- | Track the events with Google Analytics.
 sendGoogleAnalyticsTracking :: Text -> JobAction -> JobValue -> HandlerT App IO ()
 sendGoogleAnalyticsTracking uaCode SendActiviatonMail (JobValueUserMail mail) = do
   maybeSignup <- runDB . getBy $ UniqueEmail mail
-  case maybeSignup of
-    Just (Entity signupId _) -> do
-      let uid = T.pack $ show signupId
-      payload <- liftIO $ mkTrackingPayload uaCode "activation+mail" uid Nothing
-      _ <- sendTrackingEvent payload
-      return ()
-    Nothing -> return ()
+  sendTrackingEvent uaCode maybeSignup "activation+mail" Nothing
 sendGoogleAnalyticsTracking uaCode SendWelcomeMail (JobValueUserMail mail) = do
   maybeSignup <- runDB . getBy $ UniqueEmail mail
-  case maybeSignup of
-    Just (Entity signupId _) -> do
-      let uid = T.pack $ show signupId
-      payload <- liftIO $ mkTrackingPayload uaCode "welcome+mail" uid Nothing
-      _ <- sendTrackingEvent payload
-      return ()
-    Nothing -> return ()
+  sendTrackingEvent uaCode maybeSignup "welcome+mail" Nothing
 sendGoogleAnalyticsTracking uaCode SendStepAchievedMail (JobValueStepNumber mail stepNumber) = do
   maybeSignup <- runDB . getBy $ UniqueEmail mail
-  case maybeSignup of
-    Just (Entity signupId _) -> do
-      let uid = T.pack $ show signupId
-      let step = T.pack $ show stepNumber
-      payload <- liftIO $ mkTrackingPayload uaCode "welcome+mail" uid (Just step)
-      _ <- sendTrackingEvent payload
-      return ()
-    Nothing -> return ()
+  let step = T.pack $ show stepNumber
+  sendTrackingEvent uaCode maybeSignup "step+achieved" (Just step)
 sendGoogleAnalyticsTracking _ _ _ = return ()
