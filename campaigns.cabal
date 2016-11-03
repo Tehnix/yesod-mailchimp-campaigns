@@ -92,7 +92,6 @@ library
         http-conduit -any,
         cryptonite -any,
         uuid,
-        esqueleto,
         foreign-store
     extensions: TemplateHaskell QuasiQuotes OverloadedStrings
                 NoImplicitPrelude MultiParamTypeClasses TypeFamilies GADTs
