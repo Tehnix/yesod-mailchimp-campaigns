@@ -2,7 +2,7 @@ CurrentLanguageDetection:Swedish
 SignupTitle:Vinn en resa till London!
 ReferralSignupTitle:Hjälp din vän att vinna en resa till London!
 DashboardTitle:Dela med dina vänner!
-ConfirmSignupTitle:Du är nu registrerad!
+ConfirmSignupTitle:Kom ihåg att bekräfta din e-mailadress! När du har bekräftat mailadressen deltar du i tävlingen
 TermsAndConditionsTitle:Tävlingsvillkor
 InvalidActivationKeyTitle:Ogiltig aktiveringsnyckel!
 
@@ -29,7 +29,7 @@ FindOutMoreHere:Här
 CompetitionRules:Tävlingsregler
 
 
-ThanksForSigningUp:Tack för din registrering!
+ThanksForSigningUp:Kom ihåg att bekräfta din e-mailadress! När du har bekräftat mailadressen deltar du i tävlingen.
 WaitForActivationMail:Du kommer strax att motta ett bekräftelsemail.
 
 HowItWorksStep1:Registrera dig till tävlingen och få din personliga länk

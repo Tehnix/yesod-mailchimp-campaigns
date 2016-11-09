@@ -2,7 +2,7 @@ CurrentLanguageDetection:Danish
 SignupTitle:Vind en tur til London!
 ReferralSignupTitle:Hjælp din ven og vind en tur til London!
 DashboardTitle:Del med dine venner!
-ConfirmSignupTitle:Du er nu tilmeldt!
+ConfirmSignupTitle:Husk at bekræfte din e-mail! Efter bekræftelsen deltager du i konkurrencen
 TermsAndConditionsTitle:Konkurrence betingelser
 InvalidActivationKeyTitle:Ugyldig aktiverings nøgle!
 
@@ -29,7 +29,7 @@ FindOutMoreHere:her
 CompetitionRules:Konkurrence betingelser
 
 
-ThanksForSigningUp:Tak for din tilmelding!
+ThanksForSigningUp:Husk at bekræfte din e-mail! Efter bekræftelsen deltager du i konkurrencen.
 WaitForActivationMail:Du vil modtage en bekræftelsesmail inden for kort tid
 
 HowItWorksStep1:Signup og få dit unikke link

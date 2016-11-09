@@ -2,7 +2,7 @@ CurrentLanguageDetection:Norwegian
 SignupTitle:Vinn en tur til London!
 ReferralSignupTitle:Hjelp din venn, og vinn en tur til London!
 DashboardTitle:Del med dine venner!
-ConfirmSignupTitle:Du er nå registrert!
+ConfirmSignupTitle:Husk å bekrefte din e-mail! Etter at den er bekreftet, deltar du i konkurransen
 TermsAndConditionsTitle:Konkurransebetingelser
 InvalidActivationKeyTitle:Ugyldig aktiveringsnøkkel
 
@@ -29,7 +29,7 @@ FindOutMoreHere:Her
 CompetitionRules:Konkurransebetingelser
 
 
-ThanksForSigningUp:Takk for din registrering!
+ThanksForSigningUp:Husk å bekrefte din e-mail! Etter at den er bekreftet, deltar du i konkurransen.
 WaitForActivationMail:Du vil straks motta en bekreftelsesmail.
 
 HowItWorksStep1:Sign up og motta din personlige link
