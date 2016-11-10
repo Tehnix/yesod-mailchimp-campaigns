@@ -5,7 +5,7 @@ import Job.Dispatch
 
 getRunJobsR :: Handler Html
 getRunJobsR = do
-  jobs <- runDB $ selectList [JobFinished ==. False, JobAttempt <. 100] []
+  jobs <- runDB $ selectList [JobFinished ==. False, JobAttempt <. 110] []
   mapM_ dispatchJob jobs
   defaultLayout $ do
     setTitle "Job Runner"

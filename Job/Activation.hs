@@ -5,6 +5,7 @@ module Job.Activation
 import           Import
 
 import qualified Data.ByteString.Lazy.Char8 as C
+import qualified Data.Text                  as T
 import qualified Data.Text.Encoding         as T
 import qualified Network.HTTP.Simple        as HTTP
 
@@ -28,7 +29,8 @@ instance ToJSON MailchimpActivate where
 
 -- | Add the user to mailchimp list.
 sendActivationMail :: Key Job -> JobValue -> HandlerT App IO ()
-sendActivationMail jobId (JobValueUserMail mail) = do
+sendActivationMail jobId (JobValueUserMail mail') = do
+  let mail = T.toLower mail'
   $logInfo $ "Running sendActivationMail job for " <> mail
   master <- getYesod
   maybeUser <- runDB . getBy $ UniqueEmail mail

@@ -5,6 +5,7 @@ module Job.StepAchieved
 import           Import
 
 import qualified Data.ByteString.Lazy.Char8 as C
+import qualified Data.Text                  as T
 import qualified Data.Text.Encoding         as T
 import qualified Network.HTTP.Simple        as HTTP
 
@@ -24,7 +25,8 @@ instance ToJSON MailchimpStepAchieved where
 
 -- | Update the step number that the user has achieved.
 sendStepAchievedMail :: Key Job -> JobValue -> HandlerT App IO ()
-sendStepAchievedMail jobId (JobValueStepNumber mail stepNumber) = do
+sendStepAchievedMail jobId (JobValueStepNumber mail' stepNumber) = do
+  let mail = T.toLower mail'
   $logInfo $ "Running sendStepAchievedMail job for " <> mail
   master <- getYesod
   maybeUser <- runDB . getBy $ UniqueEmail mail

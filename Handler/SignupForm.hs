@@ -22,7 +22,7 @@ postSignupR = do
   case result of
     FormSuccess res -> do
       -- Check if the mail already exists in the system.
-      let mail = signupFormEmail res
+      let mail = T.toLower $ signupFormEmail res
       maybeCheckMail <- runDB . getBy $ UniqueEmail mail
       case maybeCheckMail of
         Just _  -> do

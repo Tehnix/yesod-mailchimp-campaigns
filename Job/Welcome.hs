@@ -5,6 +5,7 @@ module Job.Welcome
 import           Import
 
 import qualified Data.ByteString.Lazy.Char8 as C
+import qualified Data.Text                  as T
 import qualified Data.Text.Encoding         as T
 import qualified Network.HTTP.Simple        as HTTP
 
@@ -30,7 +31,8 @@ instance ToJSON MailchimpWelcome where
 
 -- | Trigger the Mailchimp welcome mail.
 sendWelcomeMail :: Key Job -> JobValue -> HandlerT App IO ()
-sendWelcomeMail jobId (JobValueUserMail mail) = do
+sendWelcomeMail jobId (JobValueUserMail mail') = do
+  let mail = T.toLower mail'
   $logInfo $ "Running sendWelcomeMail job for " <> mail
   master <- getYesod
   maybeUser <- runDB . getBy $ UniqueEmail mail
